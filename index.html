@@ -29,7 +29,7 @@
 
 <!-- Header -->
 <header id="header">
-  <div class="inner" data-aos="fade-down">
+  <div class="inner" data-aos="flip-down" data-aos-delay="100">
     <a href="#" class="image avatar"><img src="images/avatar.jpg" alt="Vivek H Sutar" /></a>
     <h1>
       <span class="typed">Vivek H Sutar (ViRaj)</span><br />
@@ -43,7 +43,7 @@
 <!-- Main -->
 <div id="main">
 
-  <!-- About -->
+  <!-- About Section -->
   <section id="one" data-aos="fade-up">
   <header class="major">
     <h2>About Me</h2>
@@ -75,8 +75,8 @@
 </section>
 
 
-  <!-- Contact -->
-  <section id="three" data-aos="fade-up">
+  <!-- Contact Section -->
+  <section id="three" data-aos="fade-right" data-aos-delay="300">
     <h2>Get In Touch</h2>
     <div class="row">
       <div class="col-8 col-12-small">
@@ -93,15 +93,8 @@
       </div>
       <div class="col-4 col-12-small">
         <ul class="labeled-icons">
-          <li>
-            <h3 class="icon solid fa-home"><span class="label">Address</span></h3>
-            Vatsala Kunj, Valve Khurd<br />
-            Kolhapur, Maharashtra
-          </li>
-          <li>
-            <h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
-            +91 9604863547 / +91 9049030059
-          </li>
+          <li><h3 class="icon solid fa-home"><span class="label">Address</span></h3>Vatsala Kunj, Valve Khurd<br />Kolhapur, Maharashtra</li>
+          <li><h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>+91 9604863547 / +91 9049030059</li>
         </ul>
       </div>
     </div>
@@ -109,7 +102,7 @@
 </div>
 
 <!-- Footer -->
-<footer id="footer" data-aos="fade-up">
+<footer id="footer" data-aos="flip-left" data-aos-delay="400">
   <div class="inner">
     <ul class="icons">
       <li><a href="https://x.com/rattlervivek" class="icon brands fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
@@ -132,12 +125,13 @@
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
 
-<!-- AOS -->
+<!-- AOS with repeatable animations -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
   AOS.init({
-    duration: 1000,
-    once: true
+    duration: 1200,
+    once: false,   // <- animate every time
+    mirror: true   // <- animate on scroll-up too
   });
 </script>
 
