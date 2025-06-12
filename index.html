@@ -115,26 +115,31 @@
   <div class="row">
     <div class="col-8 col-12-small">
       <form action="https://formsubmit.co/vivek0059@hotmail.com" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <div class="row gtr-uniform gtr-50">
-          <div class="col-6 col-12-xsmall">
-            <input type="text" name="name" placeholder="Name" required />
-          </div>
-          <div class="col-6 col-12-xsmall">
-            <input type="email" name="email" placeholder="Email" required />
-          </div>
-          <div class="col-12">
-            <textarea name="message" placeholder="Message" rows="4" required></textarea>
-          </div>
-        </div>
-        <ul class="actions">
-          <li><input type="submit" value="Send Message" /></li>
-        </ul>
-      </form>
-      <div id="form-message" style="display:none; color: green; margin-top: 10px;">
-        ✅ Thank you! Your message has been sent.
-      </div>
+  <!-- Disable CAPTCHA and redirection -->
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_redirect" value="false">
+
+  <div class="row gtr-uniform gtr-50">
+    <div class="col-6 col-12-xsmall">
+      <input type="text" name="name" placeholder="Name" required />
+    </div>
+    <div class="col-6 col-12-xsmall">
+      <input type="email" name="email" placeholder="Email" required />
+    </div>
+    <div class="col-12">
+      <textarea name="message" placeholder="Message" rows="4" required></textarea>
+    </div>
+  </div>
+  <ul class="actions">
+    <li><input type="submit" value="Send Message" /></li>
+  </ul>
+</form>
+
+<!-- Message shown after successful submission -->
+<div id="form-message" style="display:none; color: green; margin-top: 10px;">
+  ✅ Thank you! Your message has been sent.
+</div>
     </div>
       <div class="col-4 col-12-small">
         <ul class="labeled-icons">
@@ -197,6 +202,22 @@
   });
 </script>
 <script>
+  const form = document.querySelector("form");
+  const msg = document.getElementById("form-message");
+  form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const res = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.reset();
+      msg.style.display = "block";
+    }
+  });
+</script>
+  <script>
   const form = document.querySelector("form");
   const msg = document.getElementById("form-message");
   form.addEventListener("submit", async function(e) {
