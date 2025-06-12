@@ -111,20 +111,31 @@
 
   <!-- Contact Section -->
   <section id="three" data-aos="fade-right" data-aos-delay="300">
-    <h2>Get In Touch</h2>
-    <div class="row">
-      <div class="col-8 col-12-small">
-        <form method="post" action="#">
-          <div class="row gtr-uniform gtr-50">
-            <div class="col-6 col-12-xsmall"><input type="text" name="name" placeholder="Name" /></div>
-            <div class="col-6 col-12-xsmall"><input type="email" name="email" placeholder="Email" /></div>
-            <div class="col-12"><textarea name="message" placeholder="Message" rows="4"></textarea></div>
+  <h2>Get In Touch</h2>
+  <div class="row">
+    <div class="col-8 col-12-small">
+      <form action="https://formsubmit.co/vivek0059@hotmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <div class="row gtr-uniform gtr-50">
+          <div class="col-6 col-12-xsmall">
+            <input type="text" name="name" placeholder="Name" required />
           </div>
-          <ul class="actions">
-            <li><input type="submit" value="Send Message" /></li>
-          </ul>
-        </form>
+          <div class="col-6 col-12-xsmall">
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div class="col-12">
+            <textarea name="message" placeholder="Message" rows="4" required></textarea>
+          </div>
+        </div>
+        <ul class="actions">
+          <li><input type="submit" value="Send Message" /></li>
+        </ul>
+      </form>
+      <div id="form-message" style="display:none; color: green; margin-top: 10px;">
+        ✅ Thank you! Your message has been sent.
       </div>
+    </div>
       <div class="col-4 col-12-small">
         <ul class="labeled-icons">
           <li>
