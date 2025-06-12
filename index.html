@@ -6,32 +6,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
   <link rel="stylesheet" href="assets/css/main.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+  <style>
+    .typed {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #fff;
+      font-weight: bold;
+      animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+  </style>
 </head>
-<body class="is-preload animate__animated animate__fadeIn">
+<body class="is-preload">
 
 <!-- Header -->
 <header id="header">
-  <div class="inner">
+  <div class="inner" data-aos="fade-down">
     <a href="#" class="image avatar"><img src="images/avatar.jpg" alt="Vivek H Sutar" /></a>
-    <h1><strong>Vivek H Sutar (ViRaj)</strong><br />
-    Social Advocate · Writer/Poet<br />
-    Founder-President, Vatsala Mahila Sanstha</h1>
+    <h1>
+      <span class="typed">Vivek H Sutar (ViRaj)</span><br />
+      Social Advocate · Writer/Poet<br />
+      Founder-President, Vatsala Mahila Sanstha
+    </h1>
     <p>Driven by a truly altruistic spirit.</p>
   </div>
 </header>
 
 <!-- Main -->
 <div id="main">
-  <section id="one">
-    <header class="major">
-      <h2>About Me</h2>
-    </header>
-    <p>Vivek H Sutar is a litterateur, writer, and poet. He has published various literary and non-literary works, with <em>Healing Pages</em> and <em>Echoes of Emotions</em> marking his debut...</p>
-    <p>[Full bio content here, truncated for brevity]</p>
-  </section>
 
-  <section id="three">
+  <!-- About -->
+  <section id="one" data-aos="fade-up">
+  <header class="major">
+    <h2>About Me</h2>
+  </header>
+  <p>
+    Vivek H Sutar is a litterateur, writer, and poet. He has published various literary and non-literary works, with <em>Healing Pages</em> and <em>Echoes of Emotions</em> marking his debut. He is the founder and president of Vatsala Mahila Sanstha, tirelessly working to bring significant positive outcomes to society. Born and raised in a small village in Kagal, he pursued his education at prestigious institutions such as Shantiniketan and Sanjay Ghodawat Cambridge International School, where he excelled as the topper in his 10th board exams. He continued his high school education with the International Baccalaureate Diploma Program.
+  </p>
+  <p>
+    Since childhood, Vivek has been extremely ambitious and highly decisive, with a competitive spirit. He has represented India in national and international karate championships organized by the Shotokan Karate-Do Association of India. During junior college, he served as Vice-President of the Student Council, organizing various events and initiatives, including bringing the AFS program to his school, organizing Model United Nations (MUN) conferences, and hosting university meets attended by prestigious international institutions. His excellence extended across academics, sports, leadership, and project management.
+  </p>
+  <p>
+    One of Vivek's remarkable achievements is founding ‘HealthForHer’, a project spanning 1,227 villages in the Kolhapur district, potentially saving the lives of over three million women. The project focuses on eradicating women's cancer by raising awareness, educating rural women about the types of cancer, prevention strategies, and self-examination techniques. In collaboration with the district government, 'Raje Vikramsinh Ghatge Foundation' and other NGOs, he organized Janjagruti events and provided free cancer screening tests. The program is ongoing and has gained traction. Currently, Vivek is working with Maharashtra's Cabinet Health Minister, Shri Prakash Abitkar, to expand this initiative statewide. He is also advocating for the vaccination of girls aged 9 to 14 with the HPV vaccine.
+  </p>
+  <p>
+    Vivek has undertaken various social initiatives, which allowed him the opportunity to work alongside and interact with IAS officers and prominent individuals such as Sharad Pawar, Nitin Gadkari, Dhairyasheel Mane, Sambhajiraje Chhatrapati, Sanjay Mandlik, Dhananjay Mahadik, Satej D. Patil, Hasan Mushrif, Prakash Abitkar, and Chetan Narke, among others.
+  </p>
+  <p>
+    Inspired by his desire to contribute more to society and influenced by his interactions with social leaders, Vivek founded Vatsala Mahila Sanstha to extend his efforts on a broader scale. Being born in the birthplace of Rajarshi Shahu Maharaj, Vivek grew up surrounded by the Maharaj's inspiring legacy. Immersed in stories of Rajarshi Shahu's contributions through books, theater programs, and conversations with elders, Vivek developed a deep curiosity and admiration for the Maharaj's life and vision. This inspired him to actively contribute to society's betterment.
+  </p>
+  <p>
+    Vivek is also active in the agricultural sector, organizing large-scale events in collaboration with ATMA Maharashtra and other organizations to introduce innovative technologies and advancements to farmers. He interned at Shri Dudhganga-Vedganga Sahakari Sakhar Karkhana, working on inventory management, data analysis, and other responsibilities.
+  </p>
+  <p>
+    Dedicated to public policy, Vivek works with Raje Shri Samarjeetsinh Ghatge, Chairman of the Shahu Group and Kolhapur DPC member, who is a direct descendant of Rajarshi Shahu Maharaj.
+  </p>
+  <p>
+    Vivek is a dynamic young leader, known for his exceptional oratory skills, visionary ideas, and impactful actions. He has received appreciation letters from social leaders and has been recognized with awards from local governments for his contributions.
+  </p>
+</section>
+
+
+  <!-- Contact -->
+  <section id="three" data-aos="fade-up">
     <h2>Get In Touch</h2>
     <div class="row">
       <div class="col-8 col-12-small">
@@ -48,8 +93,15 @@
       </div>
       <div class="col-4 col-12-small">
         <ul class="labeled-icons">
-          <li><h3 class="icon solid fa-home"><span class="label">Address</span></h3>Vatsala Kunj, Valve Khurd<br />Kolhapur, Maharashtra</li>
-          <li><h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>+91 9604863547 / +91 9049030059</li>
+          <li>
+            <h3 class="icon solid fa-home"><span class="label">Address</span></h3>
+            Vatsala Kunj, Valve Khurd<br />
+            Kolhapur, Maharashtra
+          </li>
+          <li>
+            <h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
+            +91 9604863547 / +91 9049030059
+          </li>
         </ul>
       </div>
     </div>
@@ -57,16 +109,17 @@
 </div>
 
 <!-- Footer -->
-<footer id="footer">
+<footer id="footer" data-aos="fade-up">
   <div class="inner">
     <ul class="icons">
-      <li><a href="https://x.com/rattlervivek" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-      <li><a href="https://www.instagram.com/rattlervivek" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-      <li><a href="https://medium.com/@rattlervivek" class="icon brands fa-medium"><span class="label">Medium</span></a></li>
-      <li><a href="https://www.youtube.com/@rattlervivek" class="icon brands fa-youtube"><span class="label">YouTube</span></a></li>
+      <li><a href="https://x.com/rattlervivek" class="icon brands fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+      <li><a href="https://www.instagram.com/rattlervivek" class="icon brands fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+      <li><a href="https://medium.com/@rattlervivek" class="icon brands fa-medium" target="_blank"><span class="label">Medium</span></a></li>
+      <li><a href="https://www.youtube.com/@rattlervivek" class="icon brands fa-youtube" target="_blank"><span class="label">YouTube</span></a></li>
     </ul>
     <ul class="copyright">
-      <li>&copy; Vivek H Sutar</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+      <li>&copy; Vivek H Sutar</li>
+      <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
     </ul>
   </div>
 </footer>
@@ -78,5 +131,15 @@
 <script src="assets/js/breakpoints.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
+
+<!-- AOS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+
 </body>
 </html>
