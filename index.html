@@ -985,23 +985,42 @@ function initFloatingBooks() {
   // Book geometry
   const bookGeometry = new THREE.BoxGeometry(1, 1.5, 0.05); // thinner for realism
 
-  const loader = new THREE.TextureLoader();
+const loader = new THREE.TextureLoader();
 
-  // Load book cover textures
-  const book1Texture = loader.load('images/echoes.jpg');
-  const book2Texture = loader.load('images/healing.jpg');
+const book1Texture = loader.load('images/echoes.jpg');
+const book2Texture = loader.load('images/healing.jpg');
 
-  const book1Material = new THREE.MeshBasicMaterial({ map: book1Texture });
-  const book2Material = new THREE.MeshBasicMaterial({ map: book2Texture });
+// Create materials for each side of the box
+const book1Material = [
+  new THREE.MeshBasicMaterial({ color: 0x111111 }), // left
+  new THREE.MeshBasicMaterial({ color: 0x111111 }), // right
+  new THREE.MeshBasicMaterial({ color: 0x111111 }), // top
+  new THREE.MeshBasicMaterial({ color: 0x111111 }), // bottom
+  new THREE.MeshBasicMaterial({ map: book1Texture }), // front
+  new THREE.MeshBasicMaterial({ color: 0x000000 })  // back
+];
 
-  const book1 = new THREE.Mesh(bookGeometry, book1Material);
-  const book2 = new THREE.Mesh(bookGeometry, book2Material);
+const book2Material = [
+  new THREE.MeshBasicMaterial({ color: 0x111111 }),
+  new THREE.MeshBasicMaterial({ color: 0x111111 }),
+  new THREE.MeshBasicMaterial({ color: 0x111111 }),
+  new THREE.MeshBasicMaterial({ color: 0x111111 }),
+  new THREE.MeshBasicMaterial({ map: book2Texture }),
+  new THREE.MeshBasicMaterial({ color: 0x000000 })
+];
 
-  book1.position.x = -1.5;
-  book2.position.x = 1.5;
+// Geometry - slightly bigger for clarity
+const bookGeometry = new THREE.BoxGeometry(2, 3, 0.1);
 
-  scene.add(book1);
-  scene.add(book2);
+const book1 = new THREE.Mesh(bookGeometry, book1Material);
+const book2 = new THREE.Mesh(bookGeometry, book2Material);
+
+// Positioning
+book1.position.x = -2;
+book2.position.x = 2;
+
+scene.add(book1);
+scene.add(book2);
 
   // Floating + rotating animation
   function animate() {
