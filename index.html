@@ -969,59 +969,65 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     animate();
   }
 
-  // Initialize 3D Floating Books
-  function initFloatingBooks() {
-    const canvas = document.getElementById('floating-books');
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      alpha: true,
-      antialias: true
-    });
+// Initialize 3D Floating Books
+function initFloatingBooks() {
+  const canvas = document.getElementById('floating-books');
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+    antialias: true
+  });
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 5;
 
-    // Create book models (simplified)
-    const bookGeometry = new THREE.BoxGeometry(1, 1.5, 0.2);
-    const book1Material = new THREE.MeshBasicMaterial({ color: 0x00a8ff });
-    const book2Material = new THREE.MeshBasicMaterial({ color: 0xff00aa });
+  // Book geometry
+  const bookGeometry = new THREE.BoxGeometry(1, 1.5, 0.05); // thinner for realism
 
-    const book1 = new THREE.Mesh(bookGeometry, book1Material);
-    const book2 = new THREE.Mesh(bookGeometry, book2Material);
+  const loader = new THREE.TextureLoader();
 
-    book1.position.x = -1.5;
-    book2.position.x = 1.5;
+  // Load book cover textures
+  const book1Texture = loader.load('images/echoes.jpg');
+  const book2Texture = loader.load('images/healing.jpg');
 
-    scene.add(book1);
-    scene.add(book2);
+  const book1Material = new THREE.MeshBasicMaterial({ map: book1Texture });
+  const book2Material = new THREE.MeshBasicMaterial({ map: book2Texture });
 
-    // Add floating animation
-    function animate() {
-      requestAnimationFrame(animate);
+  const book1 = new THREE.Mesh(bookGeometry, book1Material);
+  const book2 = new THREE.Mesh(bookGeometry, book2Material);
 
-      book1.rotation.y += 0.01;
-      book2.rotation.y += 0.01;
+  book1.position.x = -1.5;
+  book2.position.x = 1.5;
 
-      book1.position.y = Math.sin(Date.now() * 0.001) * 0.3;
-      book2.position.y = Math.cos(Date.now() * 0.001) * 0.3;
+  scene.add(book1);
+  scene.add(book2);
 
-      renderer.render(scene, camera);
-    }
+  // Floating + rotating animation
+  function animate() {
+    requestAnimationFrame(animate);
 
-    // Handle resize
-    function onWindowResize() {
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    }
+    book1.rotation.y += 0.01;
+    book2.rotation.y += 0.01;
 
-    window.addEventListener('resize', onWindowResize);
+    book1.position.y = Math.sin(Date.now() * 0.001) * 0.3;
+    book2.position.y = Math.cos(Date.now() * 0.001) * 0.3;
 
-    // Start animation
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    animate();
+    renderer.render(scene, camera);
   }
+
+  // Handle resize
+  function onWindowResize() {
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  }
+
+  window.addEventListener('resize', onWindowResize);
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  animate();
+}
+
 
   // Initialize GSAP animations
   function initAnimations() {
