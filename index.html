@@ -833,8 +833,8 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     </div>
 
     <p class="copyright">
-      &copy; <span id="year"></span> Vivek H Sutar. All rights reserved.<br>
-      Designed for impact and influence.
+      &copy; <span id="year"></span> ViRaj. All rights reserved.<br>
+      वात्सल्येन लोकसेवा!
     </p>
   </div>
 </footer>
@@ -1020,7 +1020,7 @@ camera.position.z = 3.5;
 scene.add(book1);
 scene.add(book2);
 
-// 🧠 Add scroll tracking code HERE
+// 🧠 Scroll tracking
 let lastScrollTop = window.scrollY;
 let scrollOffset = 0;
 
@@ -1029,36 +1029,31 @@ window.addEventListener('scroll', () => {
   const delta = currentScroll - lastScrollTop;
 
   scrollOffset += delta * 0.01; // sensitivity control
-  scrollOffset = Math.max(-1, Math.min(1, scrollOffset)); // optional: limit scroll range
-
+  scrollOffset = Math.max(-1, Math.min(1, scrollOffset)); // clamp
   lastScrollTop = currentScroll;
 });
 
-// ⬇ Then your animate() function comes next
+// 🖱️ Mouse tracking
+let mouseX = 0;
+
+window.addEventListener('mousemove', (event) => {
+  mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+});
+
+// 🎬 Animate loop
 function animate() {
   requestAnimationFrame(animate);
 
-  // scroll-based vertical movement
+  // Scroll-based vertical movement
   book1.position.y = -scrollOffset;
   book2.position.y = -scrollOffset;
 
-  book1.rotation.y += 0.01;
-  book2.rotation.y += 0.01;
+  // Mouse-based horizontal sway
+  book1.position.x = -2 + mouseX * 0.5;
+  book2.position.x =  2 + mouseX * 0.5;
 
   renderer.render(scene, camera);
 }
-
-  function onWindowResize() {
-    camera.aspect = canvas.clientWidth / canvas.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  }
-
-  window.addEventListener('resize', onWindowResize);
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  animate();
-}
-
 
   // Initialize GSAP animations
   function initAnimations() {
