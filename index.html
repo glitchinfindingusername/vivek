@@ -970,6 +970,7 @@ Founder-President - Vatsala Mahila Sanstha.</title>
   }
 
 // Initialize 3D Floating Books
+
 function initFloatingBooks() {
   const canvas = document.getElementById('floating-books');
   const renderer = new THREE.WebGLRenderer({
@@ -979,63 +980,51 @@ function initFloatingBooks() {
   });
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
   camera.position.z = 5;
 
-  // Book geometry
-  const bookGeometry = new THREE.BoxGeometry(1, 1.5, 0.05); // thinner for realism
+  const loader = new THREE.TextureLoader();
 
-const loader = new THREE.TextureLoader();
+  const book1Texture = loader.load('images/echoes.jpg');
+  const book2Texture = loader.load('images/healing.jpg');
 
-const book1Texture = loader.load('images/echoes.jpg');
-const book2Texture = loader.load('images/healing.jpg');
+  const book1Material = [
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ map: book1Texture }), // front
+    new THREE.MeshBasicMaterial({ color: 0x000000 })
+  ];
 
-// Create materials for each side of the box
-const book1Material = [
-  new THREE.MeshBasicMaterial({ color: 0x111111 }), // left
-  new THREE.MeshBasicMaterial({ color: 0x111111 }), // right
-  new THREE.MeshBasicMaterial({ color: 0x111111 }), // top
-  new THREE.MeshBasicMaterial({ color: 0x111111 }), // bottom
-  new THREE.MeshBasicMaterial({ map: book1Texture }), // front
-  new THREE.MeshBasicMaterial({ color: 0x000000 })  // back
-];
+  const book2Material = [
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    new THREE.MeshBasicMaterial({ map: book2Texture }),
+    new THREE.MeshBasicMaterial({ color: 0x000000 })
+  ];
 
-const book2Material = [
-  new THREE.MeshBasicMaterial({ color: 0x111111 }),
-  new THREE.MeshBasicMaterial({ color: 0x111111 }),
-  new THREE.MeshBasicMaterial({ color: 0x111111 }),
-  new THREE.MeshBasicMaterial({ color: 0x111111 }),
-  new THREE.MeshBasicMaterial({ map: book2Texture }),
-  new THREE.MeshBasicMaterial({ color: 0x000000 })
-];
+  const bookGeometry = new THREE.BoxGeometry(2, 3, 0.1);
+  const book1 = new THREE.Mesh(bookGeometry, book1Material);
+  const book2 = new THREE.Mesh(bookGeometry, book2Material);
 
-// Geometry - slightly bigger for clarity
-const bookGeometry = new THREE.BoxGeometry(2, 3, 0.1);
+  book1.position.x = -2;
+  book2.position.x = 2;
 
-const book1 = new THREE.Mesh(bookGeometry, book1Material);
-const book2 = new THREE.Mesh(bookGeometry, book2Material);
+  scene.add(book1);
+  scene.add(book2);
 
-// Positioning
-book1.position.x = -2;
-book2.position.x = 2;
-
-scene.add(book1);
-scene.add(book2);
-
-  // Floating + rotating animation
   function animate() {
     requestAnimationFrame(animate);
-
     book1.rotation.y += 0.01;
     book2.rotation.y += 0.01;
-
     book1.position.y = Math.sin(Date.now() * 0.001) * 0.3;
     book2.position.y = Math.cos(Date.now() * 0.001) * 0.3;
-
     renderer.render(scene, camera);
   }
 
-  // Handle resize
   function onWindowResize() {
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
