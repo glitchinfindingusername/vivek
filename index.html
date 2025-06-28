@@ -970,7 +970,6 @@ Founder-President - Vatsala Mahila Sanstha.</title>
   }
 
 // Initialize 3D Floating Books
-
 function initFloatingBooks() {
   const canvas = document.getElementById('floating-books');
   const renderer = new THREE.WebGLRenderer({
@@ -979,16 +978,19 @@ function initFloatingBooks() {
     antialias: true
   });
 
-const scene = new THREE.Scene();
-const light = new THREE.AmbientLight(0xffffff, 1.5);
-scene.add(light);
+  const scene = new THREE.Scene();
+  const light = new THREE.AmbientLight(0xffffff, 1.5);
+  scene.add(light);
 
-const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-camera.position.z = 3.5;
-
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    canvas.clientWidth / canvas.clientHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 3.5;
 
   const loader = new THREE.TextureLoader();
-
   const book1Texture = loader.load('images/echoes.jpg');
   const book2Texture = loader.load('images/healing.jpg');
 
@@ -998,7 +1000,7 @@ camera.position.z = 3.5;
     new THREE.MeshBasicMaterial({ color: 0x111111 }),
     new THREE.MeshBasicMaterial({ color: 0x111111 }),
     new THREE.MeshBasicMaterial({ map: book1Texture }), // front
-    new THREE.MeshBasicMaterial({ color: 0x000000 })
+    new THREE.MeshBasicMaterial({ map: book1Texture })  // back same as front
   ];
 
   const book2Material = [
@@ -1007,7 +1009,7 @@ camera.position.z = 3.5;
     new THREE.MeshBasicMaterial({ color: 0x111111 }),
     new THREE.MeshBasicMaterial({ color: 0x111111 }),
     new THREE.MeshBasicMaterial({ map: book2Texture }),
-    new THREE.MeshBasicMaterial({ color: 0x000000 })
+    new THREE.MeshBasicMaterial({ map: book2Texture })
   ];
 
   const bookGeometry = new THREE.BoxGeometry(2.4, 3.6, 0.15);
@@ -1017,42 +1019,57 @@ camera.position.z = 3.5;
   book1.position.x = -2;
   book2.position.x = 2;
 
-scene.add(book1);
-scene.add(book2);
+  scene.add(book1);
+  scene.add(book2);
 
-// 🧠 Scroll tracking
-let lastScrollTop = window.scrollY;
-let scrollOffset = 0;
+  // 🧠 Scroll tracking
+  let lastScrollTop = window.scrollY;
+  let scrollOffset = 0;
 
-window.addEventListener('scroll', () => {
-  const currentScroll = window.scrollY;
-  const delta = currentScroll - lastScrollTop;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    const delta = currentScroll - lastScrollTop;
 
-  scrollOffset += delta * 0.01; // sensitivity control
-  scrollOffset = Math.max(-1, Math.min(1, scrollOffset)); // clamp
-  lastScrollTop = currentScroll;
-});
+    scrollOffset += delta * 0.01;
+    scrollOffset = Math.max(-1, Math.min(1, scrollOffset));
 
-// 🖱️ Mouse tracking
-let mouseX = 0;
+    lastScrollTop = currentScroll;
+  });
 
-window.addEventListener('mousemove', (event) => {
-  mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
-});
+  // 🖱️ Mouse tracking
+  let mouseX = 0;
 
-// 🎬 Animate loop
-function animate() {
-  requestAnimationFrame(animate);
+  window.addEventListener('mousemove', (event) => {
+    mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+  });
 
-  // Scroll-based vertical movement
-  book1.position.y = -scrollOffset;
-  book2.position.y = -scrollOffset;
+  // 🎬 Animate loop
+  function animate() {
+    requestAnimationFrame(animate);
 
-  // Mouse-based horizontal sway
-  book1.position.x = -2 + mouseX * 0.5;
-  book2.position.x =  2 + mouseX * 0.5;
+    // Scroll-based vertical movement
+    book1.position.y = -scrollOffset;
+    book2.position.y = -scrollOffset;
 
-  renderer.render(scene, camera);
+    // Mouse-based horizontal sway
+    book1.position.x = -2 + mouseX * 0.5;
+    book2.position.x =  2 + mouseX * 0.5;
+
+    renderer.render(scene, camera);
+  }
+
+  // 📐 Handle canvas resize
+  function onWindowResize() {
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  }
+
+  window.addEventListener('resize', onWindowResize);
+
+  // ✅ Start it all
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  animate();
 }
 
   // Initialize GSAP animations
