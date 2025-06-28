@@ -1,117 +1,125 @@
 /*
-	Strata by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Adapted for Ghibli-Inspired Portfolio
+	Original Design: Strata by HTML5 UP (html5up.net | @ajlkn)
+	CCA 3.0 license (html5up.net/license)
 */
 
 (function($) {
-
 	var $window = $(window),
 		$body = $('body'),
 		$header = $('#header'),
 		$footer = $('#footer'),
 		$main = $('#main'),
 		settings = {
-
-			// Parallax background effect?
-				parallax: true,
-
-			// Parallax factor (lower = more intense, higher = less intense).
-				parallaxFactor: 20
-
+			// Disable parallax for Ghibli theme (using GSAP animations instead)
+			parallax: false
 		};
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:  [ '1281px',  '1800px' ],
-			large:   [ '981px',   '1280px' ],
-			medium:  [ '737px',   '980px'  ],
-			small:   [ '481px',   '736px'  ],
-			xsmall:  [ null,      '480px'  ],
-		});
+	// Breakpoints (unchanged, but we'll use these for responsive behavior)
+	breakpoints({
+		xlarge:  [ '1281px',  '1800px' ],
+		large:   [ '981px',   '1280px' ],
+		medium:  [ '737px',   '980px'  ],
+		small:   [ '481px',   '736px'  ],
+		xsmall:  [ null,      '480px'  ],
+	});
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+	// Play initial animations on page load
+	$window.on('load', function() {
+		window.setTimeout(function() {
+			$body.removeClass('is-preload');
+			
+			// Initialize Ghibli-themed elements
+			initGhibliElements();
+		}, 100);
+	});
 
-	// Touch?
-		if (browser.mobile) {
+	// Touch device detection (simplified)
+	if (browser.mobile) {
+		$body.addClass('is-touch');
+		
+		// Reduce animation intensity on mobile
+		$body.addClass('is-mobile');
+	}
 
-			// Turn on touch mode.
-				$body.addClass('is-touch');
+	// Footer positioning (adapted for new layout)
+	breakpoints.on('<=medium', function() {
+		$footer.insertAfter($main);
+	});
 
-			// Height fix (mostly for iOS).
-				window.setTimeout(function() {
-					$window.scrollTop($window.scrollTop() + 1);
-				}, 0);
+	breakpoints.on('>medium', function() {
+		$footer.appendTo('body'); // Changed from header to body for new design
+	});
 
+	// Initialize Ghibli-themed elements
+	function initGhibliElements() {
+		// Remove original parallax behavior
+		if (settings.parallax) {
+			$window.off('scroll.strata_parallax');
 		}
 
-	// Footer.
-		breakpoints.on('<=medium', function() {
-			$footer.insertAfter($main);
-		});
+		// Form submission handler (for your contact form)
+		setupForm();
+		
+		// Initialize typing animation
+		initTypingEffect();
+	}
 
-		breakpoints.on('>medium', function() {
-			$footer.appendTo($header);
-		});
-
-	// Header.
-
-		// Parallax background.
-
-			// Disable parallax on IE (smooth scrolling is jerky), and on mobile platforms (= better performance).
-				if (browser.name == 'ie'
-				||	browser.mobile)
-					settings.parallax = false;
-
-			if (settings.parallax) {
-
-				breakpoints.on('<=medium', function() {
-
-					$window.off('scroll.strata_parallax');
-					$header.css('background-position', '');
-
-				});
-
-				breakpoints.on('>medium', function() {
-
-					$header.css('background-position', 'left 0px');
-
-					$window.on('scroll.strata_parallax', function() {
-						$header.css('background-position', 'left ' + (-1 * (parseInt($window.scrollTop()) / settings.parallaxFactor)) + 'px');
+	// Contact form handling
+	function setupForm() {
+		const form = $("form");
+		const msg = $("#form-message");
+		
+		if (form.length) {
+			form.on("submit", async function(e) {
+				e.preventDefault();
+				try {
+					const res = await fetch(form.attr("action"), {
+						method: "POST",
+						body: new FormData(form[0]),
+						headers: { 'Accept': 'application/json' }
 					});
-
-				});
-
-				$window.on('load', function() {
-					$window.triggerHandler('scroll');
-				});
-
-			}
-
-	// Main Sections: Two.
-
-		// Lightbox gallery.
-			$window.on('load', function() {
-
-				$('#two').poptrox({
-					caption: function($a) { return $a.next('h3').text(); },
-					overlayColor: '#2c2c2c',
-					overlayOpacity: 0.85,
-					popupCloserText: '',
-					popupLoaderText: '',
-					selector: '.work-item a.image',
-					usePopupCaption: true,
-					usePopupDefaultStyling: false,
-					usePopupEasyClose: false,
-					usePopupNav: true,
-					windowMargin: (breakpoints.active('<=small') ? 0 : 50)
-				});
-
+					
+					if (res.ok) {
+						form.trigger("reset");
+						msg.css("display", "block");
+						
+						// Ghibli-themed success animation
+						gsap.to(msg, {
+							scale: 1.2,
+							duration: 0.5,
+							yoyo: true,
+							repeat: 1,
+							ease: "power1.inOut"
+						});
+					}
+				} catch (error) {
+					console.error('Form submission error:', error);
+				}
 			});
+		}
+	}
+
+	// Typing animation for header text
+	function initTypingEffect() {
+		const typedElement = $(".typed");
+		if (typedElement.length) {
+			const text = typedElement.text();
+			typedElement.text("");
+			
+			let i = 0;
+			const typingInterval = setInterval(() => {
+				if (i < text.length) {
+					typedElement.text(typedElement.text() + text.charAt(i));
+					i++;
+				} else {
+					clearInterval(typingInterval);
+				}
+			}, 100);
+		}
+	}
+
+	// No longer using the lightbox gallery from original (#two section)
+	// Removed poptrox initialization since not in your new design
 
 })(jQuery);
