@@ -1017,17 +1017,36 @@ camera.position.z = 3.5;
   book1.position.x = -2;
   book2.position.x = 2;
 
-  scene.add(book1);
-  scene.add(book2);
+scene.add(book1);
+scene.add(book2);
 
-  function animate() {
-    requestAnimationFrame(animate);
-    book1.rotation.y += 0.01;
-    book2.rotation.y += 0.01;
-    book1.position.y = Math.sin(Date.now() * 0.001) * 0.3;
-    book2.position.y = Math.cos(Date.now() * 0.001) * 0.3;
-    renderer.render(scene, camera);
-  }
+// 🧠 Add scroll tracking code HERE
+let lastScrollTop = window.scrollY;
+let scrollOffset = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  const delta = currentScroll - lastScrollTop;
+
+  scrollOffset += delta * 0.01; // sensitivity control
+  scrollOffset = Math.max(-1, Math.min(1, scrollOffset)); // optional: limit scroll range
+
+  lastScrollTop = currentScroll;
+});
+
+// ⬇ Then your animate() function comes next
+function animate() {
+  requestAnimationFrame(animate);
+
+  // scroll-based vertical movement
+  book1.position.y = -scrollOffset;
+  book2.position.y = -scrollOffset;
+
+  book1.rotation.y += 0.01;
+  book2.rotation.y += 0.01;
+
+  renderer.render(scene, camera);
+}
 
   function onWindowResize() {
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
