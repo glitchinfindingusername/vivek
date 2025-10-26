@@ -401,3 +401,107 @@ input[type="submit"]:hover, button:hover {
 @keyframes blink {
     50% { opacity: 0; }
 }
+
+/* ===== Phone Request (matches Ghibli theme) ===== */
+
+/* Request button inside contact card */
+.request-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
+  border: none;
+  color: #fff;
+  border-radius: 50px;
+  font-family: 'Fredoka One', cursive;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  margin-top: .25rem;
+}
+.request-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.18);
+  background: linear-gradient(135deg, var(--ghibli-green) 0%, var(--ghibli-blue) 100%);
+}
+
+/* Tiny helper text under the button */
+.hint {
+  display: block;
+  margin-top: 0.5rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* ===== Modal ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  width: min(560px, 92vw);
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 20px;
+  border: 2px solid var(--ghibli-blue);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.modal h3 {
+  font-family: 'Fredoka One', cursive;
+  color: var(--ghibli-blue);
+  margin-bottom: .35rem;
+}
+.modal-sub {
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+/* Close (X) button */
+.modal-close {
+  position: absolute;
+  top: .6rem;
+  right: .6rem;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: transform .2s ease, color .2s ease;
+}
+.modal-close:hover { transform: scale(1.1); color: var(--ghibli-green); }
+
+/* Labels inside modal */
+.modal-label {
+  display:block;
+  margin-bottom: .35rem;
+  color: var(--ghibli-blue);
+  font-weight: 700;
+  font-family: 'Fredoka One', cursive;
+}
+
+/* Reuse your existing input/textarea styles; just add spacing */
+.modal .form-group { margin-bottom: 1rem; }
+.modal .form-control { margin-bottom: 0; }
+
+/* Submit button in modal reuses global button styles */
+
+/* Small note under the form */
+.modal-note {
+  margin-top: .6rem;
+  color: #666;
+  font-size: .9rem;
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 480px) {
+  .modal { padding: 1.1rem; }
+  .modal h3 { font-size: 1.1rem; }
+}
