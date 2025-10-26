@@ -182,25 +182,55 @@
 		// ESC to close
 		$(document).on('keydown', (e) => { if (e.key === 'Escape' && $modal.hasClass('open')) close(); });
 
-		// Submit handler (FormSubmit via fetch; inline UX)
+		// Submit handler (FormSubmit via fetch; inline UX) with playful re-click messages
 		if ($form.length) {
+			let lastAttempt = { name: "", phone: "", reason: "" };
+			let repeatClicks = 0;
+			const funLines = [
+				"The button works. Your fields don’t.",
+				"Blank forms don’t call back. Pinky promise.",
+				"Try typing. It’s wildly effective.",
+				"Pro tip: text goes inside the boxes."
+			];
+
 			$form.on('submit', async function(e) {
-				// simple required validation
 				const name   = $.trim($form.find('[name="name"]').val());
 				const phone  = $.trim($form.find('[name="requester_phone"]').val());
 				const reason = $.trim($form.find('[name="reason"]').val());
 
+				// validation
 				if (!name || !phone || !reason) {
 					e.preventDefault();
-					if ($submit.length) {
-						$submit.text('Please fill all fields');
-						setTimeout(() => $submit.text('Submit Request'), 1600);
+
+					// If nothing changed since the last attempt, cycle fun messages
+					if (
+						lastAttempt.name   === name &&
+						lastAttempt.phone  === phone &&
+						lastAttempt.reason === reason
+					) {
+						repeatClicks++;
+						const msg = funLines[(repeatClicks - 1) % funLines.length];
+						if ($submit.length) {
+							$submit.text(msg);
+							setTimeout(() => $submit.text('Submit Request'), 1600);
+						}
+					} else {
+						// Standard prompt on first/mutated attempt
+						repeatClicks = 0;
+						if ($submit.length) {
+							$submit.text('Please fill all fields');
+							setTimeout(() => $submit.text('Submit Request'), 1200);
+						}
 					}
+
+					// record the attempt values
+					lastAttempt = { name, phone, reason };
 					return;
 				}
 
 				// Nice UX while sending (prevent redirect)
 				e.preventDefault();
+				repeatClicks = 0;
 				if ($submit.length) $submit.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sending...');
 
 				try {
@@ -212,6 +242,7 @@
 
 					if (res.ok) {
 						$form[0].reset();
+						lastAttempt = { name: "", phone: "", reason: "" };
 						if ($submit.length) $submit.html('<i class="fas fa-check"></i> Sent');
 						setTimeout(() => {
 							close();
