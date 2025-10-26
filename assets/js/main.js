@@ -13,11 +13,10 @@
 		$footer = $('#footer'),
 		$main   = $('#main'),
 		settings = {
-			// Disable parallax for Ghibli theme (using GSAP animations instead)
-			parallax: false
+			parallax: false // disabled; we use simple animations instead
 		};
 
-	// Breakpoints (unchanged, but we'll use these for responsive behavior)
+	// Breakpoints
 	breakpoints({
 		xlarge:  [ '1281px',  '1800px' ],
 		large:   [ '981px',   '1280px' ],
@@ -26,66 +25,48 @@
 		xsmall:  [ null,      '480px'  ],
 	});
 
-	// Play initial animations on page load
+	// On load
 	$window.on('load', function() {
 		window.setTimeout(function() {
 			$body.removeClass('is-preload');
-
-			// Initialize Ghibli-themed elements
-			initGhibliElements();
+			initSite();
 		}, 100);
 	});
 
-	// Touch device detection (simplified)
+	// Touch/mobile flags
 	if (browser.mobile) {
-		$body.addClass('is-touch');
-
-		// Reduce animation intensity on mobile
-		$body.addClass('is-mobile');
+		$body.addClass('is-touch is-mobile');
 	}
 
-	// Footer positioning (adapted for new layout)
-	breakpoints.on('<=medium', function() {
-		$footer.insertAfter($main);
-	});
+	// Footer placement
+	breakpoints.on('<=medium', function() { $footer.insertAfter($main); });
+	breakpoints.on('>medium',  function() { $footer.appendTo('body'); });
 
-	breakpoints.on('>medium', function() {
-		$footer.appendTo('body'); // Changed from header to body for new design
-	});
+	/* =========================
+	   Init
+	========================= */
+	function initSite() {
+		if (settings.parallax) $window.off('scroll.strata_parallax');
 
-	// Initialize Ghibli-themed elements
-	function initGhibliElements() {
-		// Remove original parallax behavior
-		if (settings.parallax) {
-			$window.off('scroll.strata_parallax');
-		}
-
-		// Form submission handler (main contact form only; ignore phone request modal)
-		setupForm();
-
-		// Initialize typing animation
-		initTypingEffect();
-
-		// Initialize "Request Mobile Number" modal flow
-		initPhoneRequestModal();
+		setupForm();              // main contact form
+		initTypingEffect();       // optional typed heading
+		initPhoneRequestModal();  // request number modal
+		initEarlyLifeModal();     // NEW: early life modal
 	}
 
-	// Contact form handling (targets main contact form; excludes phone request modal)
+	/* =========================
+	   Contact form (main)
+	========================= */
 	function setupForm() {
-		// Prefer a specifically-marked contact form if present; else, take the first form that is not the phone request form.
 		const form = $('form[data-form="contact"], #contact form').filter(':not(#phoneRequestForm)').first();
 		const msg  = $("#form-message");
-
 		if (!form.length) return;
 
 		form.on("submit", async function(e) {
 			e.preventDefault();
 
-			// Submit UX: disable the submit for a moment
 			const $submit = form.find('[type="submit"]').first();
-			if ($submit.length) {
-				$submit.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sending...');
-			}
+			if ($submit.length) $submit.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sending...');
 
 			try {
 				const res = await fetch(form.attr("action"), {
@@ -96,23 +77,12 @@
 
 				if (res.ok) {
 					form.trigger("reset");
-
-					// Show message box if present
 					if (msg.length) {
 						msg.css("display", "block");
-						// Ghibli-themed success animation
 						if (typeof gsap !== 'undefined') {
-							gsap.to(msg, {
-								scale: 1.2,
-								duration: 0.5,
-								yoyo: true,
-								repeat: 1,
-								ease: "power1.inOut"
-							});
+							gsap.to(msg, { scale: 1.2, duration: 0.5, yoyo: true, repeat: 1, ease: "power1.inOut" });
 						}
 					}
-
-					// Button success flash
 					if ($submit.length) {
 						$submit.html('<i class="fas fa-check"></i> Sent');
 						setTimeout(() => $submit.prop('disabled', false).text('Send Message'), 1200);
@@ -130,7 +100,9 @@
 		});
 	}
 
-	// Typing animation for header text
+	/* =========================
+	   Typing effect
+	========================= */
 	function initTypingEffect() {
 		const typedElement = $(".typed");
 		if (!typedElement.length) return;
@@ -149,7 +121,9 @@
 		}, 100);
 	}
 
-	// Request Mobile Number modal (open/close + submit)
+	/* =========================
+	   Request Mobile Number modal
+	========================= */
 	function initPhoneRequestModal() {
 		const $btn    = $('#openPhoneRequest');
 		const $modal  = $('#phoneRequestModal');
@@ -157,40 +131,32 @@
 		const $form   = $('#phoneRequestForm');
 		const $submit = $('#phoneRequestSubmit');
 
-		// If button or modal are absent, skip
 		if (!$btn.length || !$modal.length) return;
 
 		const open = () => {
 			$modal.addClass('open').attr('aria-hidden', 'false');
 			$body.addClass('modal-open');
-			// focus first field for accessibility
 			setTimeout(() => $form.find('input[name="name"]').trigger('focus'), 50);
 		};
-
 		const close = () => {
 			$modal.removeClass('open').attr('aria-hidden', 'true');
 			$body.removeClass('modal-open');
 		};
 
-		// Open/close interactions
 		$btn.on('click', open);
 		if ($close.length) $close.on('click', close);
-
-		// Click on overlay closes modal
 		$modal.on('click', (e) => { if (e.target === $modal[0]) close(); });
-
-		// ESC to close
 		$(document).on('keydown', (e) => { if (e.key === 'Escape' && $modal.hasClass('open')) close(); });
 
-		// Submit handler (FormSubmit via fetch; inline UX) with playful re-click messages
+		// Submit (with playful re-click lines)
 		if ($form.length) {
 			let lastAttempt = { name: "", phone: "", reason: "" };
 			let repeatClicks = 0;
 			const funLines = [
-				"The button works. Your fields don’t.",
+				"The button works. Your fields don’t. 😅",
 				"Blank forms don’t call back. Pinky promise.",
 				"Try typing. It’s wildly effective.",
-				"Pro tip: text goes inside the boxes."
+				"Pro tip: text goes inside the boxes. ✍️"
 			];
 
 			$form.on('submit', async function(e) {
@@ -198,37 +164,21 @@
 				const phone  = $.trim($form.find('[name="requester_phone"]').val());
 				const reason = $.trim($form.find('[name="reason"]').val());
 
-				// validation
 				if (!name || !phone || !reason) {
 					e.preventDefault();
 
-					// If nothing changed since the last attempt, cycle fun messages
-					if (
-						lastAttempt.name   === name &&
-						lastAttempt.phone  === phone &&
-						lastAttempt.reason === reason
-					) {
+					if (lastAttempt.name === name && lastAttempt.phone === phone && lastAttempt.reason === reason) {
 						repeatClicks++;
 						const msg = funLines[(repeatClicks - 1) % funLines.length];
-						if ($submit.length) {
-							$submit.text(msg);
-							setTimeout(() => $submit.text('Submit Request'), 1600);
-						}
+						if ($submit.length) { $submit.text(msg); setTimeout(() => $submit.text('Submit Request'), 1600); }
 					} else {
-						// Standard prompt on first/mutated attempt
 						repeatClicks = 0;
-						if ($submit.length) {
-							$submit.text('Please fill all fields');
-							setTimeout(() => $submit.text('Submit Request'), 1200);
-						}
+						if ($submit.length) { $submit.text('Please fill all fields'); setTimeout(() => $submit.text('Submit Request'), 1200); }
 					}
-
-					// record the attempt values
 					lastAttempt = { name, phone, reason };
 					return;
 				}
 
-				// Nice UX while sending (prevent redirect)
 				e.preventDefault();
 				repeatClicks = 0;
 				if ($submit.length) $submit.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sending...');
@@ -244,10 +194,7 @@
 						$form[0].reset();
 						lastAttempt = { name: "", phone: "", reason: "" };
 						if ($submit.length) $submit.html('<i class="fas fa-check"></i> Sent');
-						setTimeout(() => {
-							close();
-							if ($submit.length) $submit.prop('disabled', false).text('Submit Request');
-						}, 1200);
+						setTimeout(() => { close(); if ($submit.length) $submit.prop('disabled', false).text('Submit Request'); }, 1200);
 					} else {
 						throw new Error('Network response not ok');
 					}
@@ -262,7 +209,50 @@
 		}
 	}
 
-	// No longer using the lightbox gallery from original (#two section)
-	// Removed poptrox initialization since not in your new design
+	/* =========================
+	   Early Life & Leadership modal (NEW)
+	========================= */
+	function initEarlyLifeModal() {
+		const $modal = $('#earlyLifeModal');
+		if (!$modal.length) {
+			// still make link non-breaking: if there's a trigger but no modal, do nothing special
+			return;
+		}
+
+		const $openBtn = $('#openEarlyLife'); // optional dedicated trigger
+		const $close   = $('#closeEarlyLife');
+		const $frame   = $('#elFrame');
+
+		// Also intercept any anchor linking to early-life.html
+		$('a[href$="early-life.html"]').on('click', function(e) {
+			e.preventDefault();
+			open();
+		});
+
+		if ($openBtn.length) $openBtn.on('click', open);
+		if ($close.length)   $close.on('click', close);
+
+		$modal.on('click', (e) => { if (e.target === $modal[0]) close(); });
+		$(document).on('keydown', (e) => { if (e.key === 'Escape' && $modal.hasClass('open')) close(); });
+
+		let loaded = false;
+		function open() {
+			$modal.addClass('open').attr('aria-hidden','false');
+			$body.addClass('modal-open');
+
+			// Lazy-load iframe once
+			if (!loaded && $frame.length) {
+				const src = $frame.attr('data-src');
+				if (src) $frame.attr('src', src);
+				loaded = true;
+			}
+		}
+		function close() {
+			$modal.removeClass('open').attr('aria-hidden','true');
+			$body.removeClass('modal-open');
+		}
+	}
+
+	// (Gallery/lightbox removed for this design)
 
 })(jQuery);
