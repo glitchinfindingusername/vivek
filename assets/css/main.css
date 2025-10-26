@@ -297,6 +297,7 @@
   text-decoration: none;
   outline: none;
 }
+
 /* === Phone button: force gradient + layout in Contact === */
 #contact .contact-text .request-btn {
   display: block !important;          /* own line */
