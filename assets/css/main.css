@@ -1,507 +1,213 @@
-/* Font Imports */
+/* ===========================
+   Ghibli Skin (namespaced)
+   Safe to include site-wide.
+   Only affects pages with:
+   <body class="ghibli-skin">
+   =========================== */
+
+/* Fonts (optional; safe to keep even if unused) */
 @import url("fontawesome-all.min.css");
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Comic+Neue:wght@400;700&display=swap");
 
-/* Reset and Base Styles */
-html, body, div, span, applet, object,
-iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
-pre, a, abbr, acronym, address, big, cite,
-code, del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var, b,
-u, i, center, dl, dt, dd, ol, ul, li, fieldset,
-form, label, legend, table, caption, tbody,
-tfoot, thead, tr, th, td, article, aside,
-canvas, details, embed, figure, figcaption,
-footer, header, hgroup, menu, nav, output, ruby,
-section, summary, time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+/* Theme Vars (scoped) */
+.ghibli-skin {
+  --ghibli-blue: #8fb2d5;
+  --ghibli-green: #a8c97f;
+  --ghibli-yellow: #f5e56b;
+  --ghibli-red: #e87a5d;
+  --ghibli-brown: #b58c6e;
+  --ghibli-sky: #d4eaf0;
+  --ghibli-cloud: #f0f7f7;
 }
 
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-    display: block;
-}
-
-body {
-    line-height: 1;
-    font-family: 'Comic Neue', cursive;
-    background-color: var(--ghibli-sky);
-    color: #333;
-    overflow-x: hidden;
-    position: relative;
-}
-
-ol, ul {
-    list-style: none;
-}
-
-blockquote, q {
-    quotes: none;
-}
-
-blockquote:before, blockquote:after, q:before, q:after {
-    content: '';
-    content: none;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-/* Color Variables */
-:root {
-    --ghibli-blue: #8fb2d5;
-    --ghibli-green: #a8c97f;
-    --ghibli-yellow: #f5e56b;
-    --ghibli-red: #e87a5d;
-    --ghibli-brown: #b58c6e;
-    --ghibli-sky: #d4eaf0;
-    --ghibli-cloud: #f0f7f7;
-}
-
-/* Layout Structure */
-#header {
-    padding: 4em 2em 6em;
-    text-align: center;
-    position: relative;
-    z-index: 10;
-    background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
-    border-radius: 0 0 30px 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-#main {
-    padding: 2em;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 5;
-}
-
-.inner {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fredoka One', cursive;
-    color: var(--ghibli-blue);
-    margin: 0 0 1em 0;
-}
-
-h1 {
-    font-size: 2.5em;
-    line-height: 1.2;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-h2 {
-    font-size: 2em;
-    border-bottom: 2px solid var(--ghibli-green);
-    padding-bottom: 0.5em;
-    margin-bottom: 1.5em;
-}
-
-p {
-    margin: 0 0 1.5em 0;
-    line-height: 1.75em;
-}
-
-a {
-    color: var(--ghibli-blue);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-a:hover {
-    color: var(--ghibli-green);
-}
-
-/* Header Styles */
-#header .image {
-    display: inline-block;
-    width: 12em;
-    height: 12em;
-    margin: 0 0 2em 0;
-    border-radius: 100%;
-    border: 0.5em solid white;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-#header .image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Section Styles */
-section {
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 20px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--ghibli-blue), var(--ghibli-green), var(--ghibli-yellow), var(--ghibli-red));
-}
-
-/* Form Elements */
-input[type="text"],
-input[type="email"],
-textarea {
-    border: 2px solid var(--ghibli-blue);
-    border-radius: 10px;
-    padding: 10px 15px;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.8);
-    width: 100%;
-    margin-bottom: 1.5em;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-    outline: none;
-    border-color: var(--ghibli-green);
-    box-shadow: 0 0 0 3px rgba(143, 178, 213, 0.3);
-}
-
-textarea {
-    min-height: 150px;
-}
-
-/* Buttons */
-input[type="submit"], button {
-    background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-family: 'Fredoka One', cursive;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-input[type="submit"]:hover, button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(135deg, var(--ghibli-green) 0%, var(--ghibli-blue) 100%);
-}
-
-/* Footer Styles */
-#footer {
-    background: linear-gradient(135deg, var(--ghibli-brown) 0%, #9c7a5e 100%);
-    color: white;
-    border-radius: 30px 30px 0 0;
-    padding: 4em 2em;
-    text-align: center;
-}
-
-#footer .icons {
-    margin: 0 0 2em 0;
-    list-style: none;
-    padding: 0;
-}
-
-#footer .icons li {
-    display: inline-block;
-    margin: 0 0.75em;
-}
-
-#footer .icons a {
-    color: white;
-    transition: all 0.3s ease;
-}
-
-#footer .icons a:hover {
-    transform: translateY(-5px) scale(1.2);
-    color: var(--ghibli-yellow);
-}
-
-#footer .copyright {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: 0.9em;
-}
-
-#footer .copyright li {
-    display: inline-block;
-    margin: 0 0.5em;
-}
-
-/* Responsive Adjustments */
-@media screen and (max-width: 980px) {
-    #header {
-        padding: 3em 1.5em 4em;
-    }
-    
-    #main {
-        padding: 1.5em;
-    }
-    
-    #footer {
-        padding: 3em 1.5em;
-    }
-}
-
-@media screen and (max-width: 736px) {
-    #header .image {
-        width: 10em;
-        height: 10em;
-    }
-    
-    h1 {
-        font-size: 2em;
-    }
-    
-    h2 {
-        font-size: 1.75em;
-    }
-    
-    section {
-        padding: 1.5em;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    #header {
-        padding: 2em 1em 3em;
-    }
-    
-    #header .image {
-        width: 8em;
-        height: 8em;
-        margin-bottom: 1.5em;
-    }
-    
-    h1 {
-        font-size: 1.5em;
-    }
-    
-    h2 {
-        font-size: 1.5em;
-    }
-    
-    #footer {
-        padding: 2em 1em;
-    }
-    
-    .typed {
-        font-size: 1.2em;
-        white-space: normal;
-    }
-    
-    .typed::after {
-        display: none;
-    }
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--ghibli-sky);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--ghibli-blue);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--ghibli-green);
-}
-
-/* Cloud and Firefly Elements (for JavaScript to target) */
-.cloud {
-    position: absolute;
-    background: var(--ghibli-cloud);
-    border-radius: 50%;
-    opacity: 0.9;
-    z-index: -1;
-}
-
-.firefly {
-    position: fixed;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: var(--ghibli-yellow);
-    box-shadow: 0 0 10px 2px var(--ghibli-yellow);
-    z-index: -1;
-    opacity: 0;
-}
-
-.totoro-silhouette {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23333" d="M50 10c-20 0-30 15-30 30 0 10 5 20 10 25-5 5-10 15-10 25h60c0-10-5-20-10-25 5-5 10-15 10-25 0-15-10-30-30-30z"/></svg>') no-repeat;
-    opacity: 0.1;
-    z-index: -1;
-}
-
-/* Typing Animation */
-.typed {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    font-weight: bold;
-    font-size: 1.5em;
-    font-family: 'Fredoka One', cursive;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    position: relative;
-}
-
-.typed::after {
-    content: '|';
-    position: absolute;
-    right: 0;
-    animation: blink 0.75s step-end infinite;
-}
-
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-/* ===== Phone Request (matches Ghibli theme) ===== */
-
-/* Request button inside contact card */
-.request-btn {
-  display: inline-block;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
-  border: none;
-  color: #fff;
-  border-radius: 50px;
-  font-family: 'Fredoka One', cursive;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
-  margin-top: .25rem;
-}
-.request-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.18);
-  background: linear-gradient(135deg, var(--ghibli-green) 0%, var(--ghibli-blue) 100%);
-}
-
-/* Tiny helper text under the button */
-.hint {
-  display: block;
-  margin-top: 0.5rem;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-/* ===== Modal ===== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-.modal-overlay.open { display: flex; }
-
-.modal {
-  width: min(560px, 92vw);
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 20px;
-  border: 2px solid var(--ghibli-blue);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
-  padding: 1.5rem;
+/* Base */
+.ghibli-skin {
+  line-height: 1.6;
+  font-family: 'Comic Neue', cursive;
+  background-color: var(--ghibli-sky);
+  color: #333;
+  overflow-x: hidden;
   position: relative;
 }
 
-.modal h3 {
+/* Containers */
+.ghibli-skin #header {
+  padding: 4em 2em 6em;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: ghibli-float 6s ease-in-out infinite;
+}
+@keyframes ghibli-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.ghibli-skin #main { padding: 2em; max-width: 1200px; margin: 0 auto; position: relative; z-index: 5; }
+.ghibli-skin .inner { max-width: 1000px; margin: 0 auto; }
+
+/* Typography */
+.ghibli-skin h1, 
+.ghibli-skin h2, 
+.ghibli-skin h3, 
+.ghibli-skin h4, 
+.ghibli-skin h5, 
+.ghibli-skin h6 {
   font-family: 'Fredoka One', cursive;
   color: var(--ghibli-blue);
-  margin-bottom: .35rem;
+  margin: 0 0 1em 0;
 }
-.modal-sub {
-  color: #444;
-  margin-bottom: 1rem;
+.ghibli-skin h1 { font-size: 2.5em; line-height: 1.2; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,.3); }
+.ghibli-skin h2 { font-size: 2em; border-bottom: 2px solid var(--ghibli-green); padding-bottom: .5em; margin-bottom: 1.5em; }
+.ghibli-skin p { margin: 0 0 1.5em; line-height: 1.75em; }
+.ghibli-skin a { color: var(--ghibli-blue); text-decoration: none; transition: all .3s ease; }
+.ghibli-skin a:hover { color: var(--ghibli-green); }
+
+/* Header avatar */
+.ghibli-skin #header .image {
+  display: inline-block; width: 12em; height: 12em; margin: 0 0 2em 0;
+  border-radius: 100%; border: .5em solid #fff; overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,.2);
 }
+.ghibli-skin #header .image img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Close (X) button */
-.modal-close {
-  position: absolute;
-  top: .6rem;
-  right: .6rem;
-  background: none;
-  border: none;
-  color: #777;
-  font-size: 1.25rem;
-  cursor: pointer;
-  transition: transform .2s ease, color .2s ease;
+/* Card-like sections */
+.ghibli-skin section {
+  background: rgba(255,255,255,.85);
+  border-radius: 20px; padding: 2rem; margin-bottom: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,.1);
+  transition: transform .3s ease, box-shadow .3s ease;
+  position: relative; overflow: hidden;
 }
-.modal-close:hover { transform: scale(1.1); color: var(--ghibli-green); }
-
-/* Labels inside modal */
-.modal-label {
-  display:block;
-  margin-bottom: .35rem;
-  color: var(--ghibli-blue);
-  font-weight: 700;
-  font-family: 'Fredoka One', cursive;
-}
-
-/* Reuse your existing input/textarea styles; just add spacing */
-.modal .form-group { margin-bottom: 1rem; }
-.modal .form-control { margin-bottom: 0; }
-
-/* Submit button in modal reuses global button styles */
-
-/* Small note under the form */
-.modal-note {
-  margin-top: .6rem;
-  color: #666;
-  font-size: .9rem;
+.ghibli-skin section:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,.15); }
+.ghibli-skin section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, var(--ghibli-blue), var(--ghibli-green), var(--ghibli-yellow), var(--ghibli-red));
 }
 
-/* Responsive tweaks */
+/* Forms */
+.ghibli-skin input[type="text"],
+.ghibli-skin input[type="email"],
+.ghibli-skin textarea {
+  border: 2px solid var(--ghibli-blue);
+  border-radius: 10px; padding: 10px 15px; transition: all .3s ease;
+  background: rgba(255,255,255,.8); width: 100%; margin-bottom: 1.5em;
+}
+.ghibli-skin input[type="text"]:focus,
+.ghibli-skin input[type="email"]:focus,
+.ghibli-skin textarea:focus {
+  outline: none; border-color: var(--ghibli-green);
+  box-shadow: 0 0 0 3px rgba(143,178,213,.3);
+}
+.ghibli-skin textarea { min-height: 150px; }
+
+/* Buttons */
+.ghibli-skin input[type="submit"],
+.ghibli-skin button {
+  background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
+  border: none; color: #fff; padding: 12px 24px; border-radius: 50px;
+  font-family: 'Fredoka One', cursive; cursor: pointer; position: relative; overflow: hidden;
+  transition: all .3s ease; box-shadow: 0 4px 15px rgba(0,0,0,.1);
+}
+.ghibli-skin input[type="submit"]:hover,
+.ghibli-skin button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0,0,0,.15);
+  background: linear-gradient(135deg, var(--ghibli-green) 0%, var(--ghibli-blue) 100%);
+}
+
+/* Footer */
+.ghibli-skin #footer {
+  background: linear-gradient(135deg, var(--ghibli-brown) 0%, #9c7a5e 100%);
+  color: #fff; border-radius: 30px 30px 0 0; padding: 4em 2em; text-align: center;
+}
+.ghibli-skin #footer .icons { margin: 0 0 2em; list-style: none; padding: 0; }
+.ghibli-skin #footer .icons li { display: inline-block; margin: 0 .75em; }
+.ghibli-skin #footer .icons a { color: #fff; transition: all .3s ease; }
+.ghibli-skin #footer .icons a:hover { transform: translateY(-5px) scale(1.2); color: var(--ghibli-yellow); }
+.ghibli-skin #footer .copyright { margin: 0; padding: 0; list-style: none; font-size: .9em; }
+.ghibli-skin #footer .copyright li { display: inline-block; margin: 0 .5em; }
+
+/* Request button + hint (scoped) */
+.ghibli-skin .request-btn {
+  display: inline-block; padding: 12px 20px;
+  background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
+  border: none; color: #fff; border-radius: 50px; font-family: 'Fredoka One', cursive;
+  cursor: pointer; transition: all .3s ease; box-shadow: 0 4px 15px rgba(0,0,0,.12); margin-top: .25rem;
+}
+.ghibli-skin .request-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0,0,0,.18);
+  background: linear-gradient(135deg, var(--ghibli-green) 0%, var(--ghibli-blue) 100%);
+}
+.ghibli-skin .hint { display: block; margin-top: .5rem; color: #555; font-size: .9rem; }
+
+/* Modal (scoped) */
+.ghibli-skin .modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.55);
+  display: none; align-items: center; justify-content: center; z-index: 2000;
+}
+.ghibli-skin .modal-overlay.open { display: flex; }
+
+.ghibli-skin .modal {
+  width: min(560px, 92vw);
+  background: rgba(255,255,255,.96);
+  border-radius: 20px; border: 2px solid var(--ghibli-blue);
+  box-shadow: 0 15px 40px rgba(0,0,0,.18);
+  padding: 1.5rem; position: relative;
+}
+.ghibli-skin .modal h3 { font-family: 'Fredoka One', cursive; color: var(--ghibli-blue); margin-bottom: .35rem; }
+.ghibli-skin .modal-sub { color: #444; margin-bottom: 1rem; }
+.ghibli-skin .modal-close {
+  position: absolute; top: .6rem; right: .6rem; background: none; border: none;
+  color: #777; font-size: 1.25rem; cursor: pointer; transition: transform .2s ease, color .2s ease;
+}
+.ghibli-skin .modal-close:hover { transform: scale(1.1); color: var(--ghibli-green); }
+.ghibli-skin .modal-label { display:block; margin-bottom: .35rem; color: var(--ghibli-blue); font-weight: 700; font-family: 'Fredoka One', cursive; }
+.ghibli-skin .modal .form-group { margin-bottom: 1rem; }
+.ghibli-skin .modal .form-control { margin-bottom: 0; }
+.ghibli-skin .modal-note { margin-top: .6rem; color: #666; font-size: .9rem; }
+
+/* Cute extras (scoped) */
+.ghibli-skin .cloud { position: absolute; background: var(--ghibli-cloud); border-radius: 50%; opacity: .9; z-index: -1; }
+.ghibli-skin .firefly {
+  position: fixed; width: 4px; height: 4px; border-radius: 50%;
+  background-color: var(--ghibli-yellow); box-shadow: 0 0 10px 2px var(--ghibli-yellow);
+  z-index: -1; opacity: 0;
+}
+.ghibli-skin .totoro-silhouette {
+  position: absolute; width: 150px; height: 150px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23333" d="M50 10c-20 0-30 15-30 30 0 10 5 20 10 25-5 5-10 15-10 25h60c0-10-5-20-10-25 5-5 10-15 10-25 0-15-10-30-30-30z"/></svg>') no-repeat;
+  opacity: .1; z-index: -1;
+}
+
+/* Responsive */
+@media screen and (max-width: 980px) {
+  .ghibli-skin #header { padding: 3em 1.5em 4em; }
+  .ghibli-skin #main { padding: 1.5em; }
+  .ghibli-skin #footer { padding: 3em 1.5em; }
+}
+@media screen and (max-width: 736px) {
+  .ghibli-skin #header .image { width: 10em; height: 10em; }
+  .ghibli-skin h1 { font-size: 2em; }
+  .ghibli-skin h2 { font-size: 1.75em; }
+  .ghibli-skin section { padding: 1.5em; }
+}
 @media screen and (max-width: 480px) {
-  .modal { padding: 1.1rem; }
-  .modal h3 { font-size: 1.1rem; }
+  .ghibli-skin #header { padding: 2em 1em 3em; }
+  .ghibli-skin #header .image { width: 8em; height: 8em; margin-bottom: 1.5em; }
+  .ghibli-skin h1 { font-size: 1.5em; }
+  .ghibli-skin h2 { font-size: 1.5em; }
+  .ghibli-skin #footer { padding: 2em 1em; }
+  .ghibli-skin .typed { font-size: 1.2em; white-space: normal; }
+  .ghibli-skin .typed::after { display: none; }
 }
+
+/* Scrollbar (scoped; only affects elements inside a ghibli container with overflow) */
+.ghibli-skin ::-webkit-scrollbar { width: 10px; }
+.ghibli-skin ::-webkit-scrollbar-track { background: var(--ghibli-sky); }
+.ghibli-skin ::-webkit-scrollbar-thumb { background: var(--ghibli-blue); border-radius: 10px; }
+.ghibli-skin ::-webkit-scrollbar-thumb:hover { background: var(--ghibli-green); }
