@@ -50,11 +50,11 @@
 .ghibli-skin .inner { max-width: 1000px; margin: 0 auto; }
 
 /* Typography */
-.ghibli-skin h1, 
-.ghibli-skin h2, 
-.ghibli-skin h3, 
-.ghibli-skin h4, 
-.ghibli-skin h5, 
+.ghibli-skin h1,
+.ghibli-skin h2,
+.ghibli-skin h3,
+.ghibli-skin h4,
+.ghibli-skin h5,
 .ghibli-skin h6 {
   font-family: 'Fredoka One', cursive;
   color: var(--ghibli-blue);
@@ -66,20 +66,28 @@
 .ghibli-skin a { color: var(--ghibli-blue); text-decoration: none; transition: all .3s ease; }
 .ghibli-skin a:hover { color: var(--ghibli-green); }
 
-/* ✅ Center hero content */
+/* ✅ Center hero content (works even if not using .ghibli-skin) */
 #hero {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;   /* horizontal center */
-  justify-content: center; /* vertical center */
+  align-items: center;        /* horizontal center */
+  justify-content: center;    /* vertical center */
   text-align: center;
-  min-height: 100vh; /* makes it fill the screen height */
+  min-height: 100vh;          /* full viewport height */
+  padding-top: 96px;          /* keeps hero below fixed header (if you use one) */
 }
-
 .hero-content {
   position: relative;
-  z-index: 2; /* ensure it sits above the canvas */
+  z-index: 2;                 /* ensure it sits above any hero canvas */
+}
+#blackhole-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;                 /* canvas behind the text */
 }
 
 /* Header avatar */
@@ -120,7 +128,7 @@
 }
 .ghibli-skin textarea { min-height: 150px; }
 
-/* Buttons */
+/* Buttons (scoped) */
 .ghibli-skin input[type="submit"],
 .ghibli-skin button {
   background: linear-gradient(135deg, var(--ghibli-blue) 0%, var(--ghibli-green) 100%);
@@ -227,3 +235,38 @@
 .ghibli-skin ::-webkit-scrollbar-track { background: var(--ghibli-sky); }
 .ghibli-skin ::-webkit-scrollbar-thumb { background: var(--ghibli-blue); border-radius: 10px; }
 .ghibli-skin ::-webkit-scrollbar-thumb:hover { background: var(--ghibli-green); }
+
+/* =========================================================
+   Global helpers so things work even without .ghibli-skin
+   ========================================================= */
+
+/* Bring back the rounded gradient button globally */
+.request-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--primary, #00F0FF) 0%, var(--primary-dark, #0077FF) 100%);
+  border: none;
+  color: #fff;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,.12);
+  margin-top: .25rem;
+}
+.request-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0,0,0,.18);
+  background: linear-gradient(135deg, var(--primary-dark, #0077FF) 0%, var(--primary, #00F0FF) 100%);
+}
+
+/* Force light gray text and cancel any gradient text styles */
+.force-gray,
+.force-gray:visited {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+  color: var(--text-secondary, #AAAAAA) !important;
+  text-decoration: none;
+}
