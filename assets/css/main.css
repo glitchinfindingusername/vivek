@@ -237,28 +237,40 @@
 .ghibli-skin ::-webkit-scrollbar-thumb { background: var(--ghibli-blue); border-radius: 10px; }
 .ghibli-skin ::-webkit-scrollbar-thumb:hover { background: var(--ghibli-green); }
 
-/* =========================================================
-   Global helpers so things work even without .ghibli-skin
-   ========================================================= */
-
-/* Bring back the rounded gradient button globally */
+/* Phone CTA button */
 .request-btn {
   display: inline-block;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, var(--primary, #00F0FF) 0%, var(--primary-dark, #0077FF) 100%);
-  border: none;
-  color: #fff;
-  border-radius: 50px;
+  padding: 1rem 2rem;
   font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary, #00F0FF), var(--primary-dark, #0077FF));
+  border: none;
+  border-radius: 14px;         
+  box-shadow: 0 8px 24px rgba(0, 120, 255, 0.25);
   cursor: pointer;
-  transition: all .3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,.12);
-  margin-top: .25rem;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
+
 .request-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 7px 20px rgba(0,0,0,.18);
-  background: linear-gradient(135deg, var(--primary-dark, #0077FF) 0%, var(--primary, #00F0FF) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 120, 255, 0.35);
+  filter: brightness(1.05);
+}
+
+.request-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.35), 0 8px 24px rgba(0, 120, 255, 0.25);
+}
+
+.request-btn:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
 }
 
 /* Force light gray text and cancel any gradient text styles */
