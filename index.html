@@ -280,6 +280,19 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     }
     .request-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,240,255,.35); }
     .hint { display:block; margin-top:.5rem; color: var(--text-secondary); font-size:.9rem; }
+
+    /* NEW: Make location + phone helper look like links (same vibe as Published Works) */
+    .contact-text .as-link,
+    .contact-text .as-link:visited {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all .3s ease;
+    }
+    .contact-text .as-link:hover {
+      color: var(--accent);
+      text-shadow: var(--neon-glow);
+    }
   </style>
 </head>
 <body class="is-preload">
@@ -370,7 +383,7 @@ Founder-President - Vatsala Mahila Sanstha.</title>
           <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
           <div class="contact-text">
             <h3>Location</h3>
-            <div>Kolhapur, Maharashtra</div>
+            <div class="as-link">Kolhapur, Maharashtra</div>
           </div>
         </div>
 
@@ -379,7 +392,7 @@ Founder-President - Vatsala Mahila Sanstha.</title>
           <div class="contact-text">
             <h3>Phone</h3>
             <button id="openPhoneRequest" class="request-btn">Click to Request Mobile Number</button>
-            <small class="hint">We’ll review your reason and call back if appropriate.</small>
+            <small class="hint as-link">We’ll review your reason and call back if appropriate.</small>
           </div>
         </div>
 
@@ -667,7 +680,7 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     });
   }
 
-  // Modal open/close + submit
+  // Modal open/close + submit (with playful repeat messages)
   function initPhoneRequestModal() {
     const btn = document.getElementById('openPhoneRequest');
     const modal = document.getElementById('phoneRequestModal');
@@ -685,24 +698,51 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
 
     if (form) {
+      let lastAttempt = { name:"", phone:"", reason:"" };
+      let repeatClicks = 0;
+      const funLines = [
+        "The button works. Your fields don’t. 😅",
+        "Even AI needs data. Feed the boxes!",
+        "Blank forms don’t call back. Pinky promise.",
+        "Try typing. It’s wildly effective.",
+        "Pro tip: text goes inside the boxes. ✍️"
+      ];
+
       form.addEventListener('submit', async (e) => {
         const name = form.elements['name'].value.trim();
         const phone = form.elements['requester_phone'].value.trim();
         const reason = form.elements['reason'].value.trim();
+
         if (!name || !phone || !reason) {
           e.preventDefault();
-          if (submit) { submit.textContent='Please fill all fields'; setTimeout(()=> submit.textContent='Submit Request', 1400); }
+
+          if (
+            lastAttempt.name === name &&
+            lastAttempt.phone === phone &&
+            lastAttempt.reason === reason
+          ) {
+            repeatClicks++;
+            const msg = funLines[(repeatClicks - 1) % funLines.length];
+            if (submit) { submit.textContent = msg; setTimeout(()=> submit.textContent='Submit Request', 1600); }
+          } else {
+            repeatClicks = 0;
+            if (submit) { submit.textContent='Please fill all fields'; setTimeout(()=> submit.textContent='Submit Request', 1200); }
+          }
+          lastAttempt = { name, phone, reason };
           return;
         }
+
         e.preventDefault();
+        repeatClicks = 0;
         if (submit) { submit.disabled = true; submit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'; }
         try {
           const res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
           if (res.ok) {
             form.reset();
+            lastAttempt = { name:"", phone:"", reason:"" };
             if (submit) submit.innerHTML = '<i class="fas fa-check"></i> Sent';
             setTimeout(()=> { if (submit){ submit.disabled=false; submit.textContent='Submit Request'; } close(); }, 1200);
-          } else throw new Error('Network not ok');
+          } else { throw new Error('Network not ok'); }
         } catch(err) {
           console.error(err);
           if (submit) { submit.innerHTML = '<i class="fas fa-times"></i> Error'; setTimeout(()=>{ submit.disabled=false; submit.textContent='Submit Request'; }, 1500); }
