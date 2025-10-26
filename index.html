@@ -35,14 +35,14 @@ Founder-President - Vatsala Mahila Sanstha.</title>
       --glass: rgba(20, 20, 30, 0.7);
       --glass-border: rgba(255, 255, 255, 0.15);
       --neon-glow: 0 0 15px var(--primary), 0 0 30px var(--primary);
+
+      /* new: site-wide width control */
+      --site-max: 1100px;
+      --site-pad: 2rem;
     }
 
     /* Base Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -87,30 +87,14 @@ Founder-President - Vatsala Mahila Sanstha.</title>
       border-radius: 2px;
     }
 
-    p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      margin-bottom: 1.5rem;
-    }
+    p { color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1.5rem; }
 
-    a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    a:hover {
-      color: var(--accent);
-      text-shadow: var(--neon-glow);
-    }
+    a { color: var(--primary); text-decoration: none; transition: all 0.3s ease; }
+    a:hover { color: var(--accent); text-shadow: var(--neon-glow); }
 
     /* Header */
     #header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
       padding: 1.5rem 0;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -118,582 +102,184 @@ Founder-President - Vatsala Mahila Sanstha.</title>
       border-bottom: 1px solid var(--glass-border);
       transition: all 0.4s ease;
     }
-
-    #header.scrolled {
-      padding: 1rem 0;
-      background-color: rgba(0, 0, 0, 0.9);
-    }
+    #header.scrolled { padding: 1rem 0; background-color: rgba(0, 0, 0, 0.9); }
 
     .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      max-width: var(--site-max); margin: 0 auto; padding: 0 var(--site-pad);
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+    .logo { display: flex; align-items: center; gap: 1rem; }
+    .logo-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; }
+    .logo-text { font-weight: 800; font-size: 1.3rem; color: var(--text-primary); }
 
-    .logo-img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ffffff;
-      box-shadow: none;
-    }
-
-    .logo-text {
-      font-weight: 800;
-      font-size: 1.3rem;
-      color: var(--text-primary);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-
+    .nav-links { display: flex; gap: 2rem; flex-wrap: wrap; }
     .nav-link {
-      position: relative;
-      font-weight: 600;
-      color: var(--text-secondary);
-      padding: 0.5rem 0;
-      transition: all 0.3s ease;
+      position: relative; font-weight: 600; color: var(--text-secondary);
+      padding: 0.5rem 0; transition: all 0.3s ease;
     }
-
     .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s ease;
+      content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+      background: var(--primary); transition: width 0.3s ease;
     }
+    .nav-link:hover { color: var(--text-primary); }
+    .nav-link:hover::after { width: 100%; }
 
-    .nav-link:hover {
-      color: var(--text-primary);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    /* Hero Section (Black Hole Effect) */
+    /* Hero Section */
     #hero {
-      position: relative;
-      height: 100vh;
-      min-height: 800px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      position: relative; height: 100vh; min-height: 800px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      max-width: 800px;
-      padding: 0 2rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.3rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-    }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 var(--site-pad); }
+    .hero-subtitle { font-size: 1.3rem; color: var(--text-secondary); margin-bottom: 2rem; opacity: 0; transform: translateY(20px); }
 
     .hero-cta {
-      display: inline-block;
-      padding: 1rem 2.5rem;
+      display: inline-block; padding: 1rem 2.5rem;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      border-radius: 50px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(20px);
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+      color: #fff; border-radius: 50px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+      border: none; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(20px); box-shadow: 0 0 20px rgba(0,240,255,.5);
     }
+    .hero-cta:hover { transform: translateY(-5px); box-shadow: 0 0 30px rgba(0,240,255,.8); }
+    .hero-cta::before { content: ''; position: absolute; top:0; left:-100%; width:100%; height:100%;
+      background: linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent); transition: all .6s ease; }
+    .hero-cta:hover::before { left: 100%; }
 
-    .hero-cta:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 30px rgba(0, 240, 255, 0.8);
-    }
-
-    .hero-cta::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: all 0.6s ease;
-    }
-
-    .hero-cta:hover::before {
-      left: 100%;
-    }
-
-    /* 3D Black Hole Background */
-    #blackhole-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-    }
+    #blackhole-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 
     /* About Section */
-    #about {
-      position: relative;
-      padding: 8rem 0;
-      background-color: var(--bg-darker);
-    }
-
-    .about-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .about-image {
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-
-    .about-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .about-image::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(255, 0, 170, 0.1));
-    }
-
-    .about-text {
-      opacity: 0;
-      transform: translateX(50px);
-    }
+    #about { position: relative; padding: 8rem 0; background-color: var(--bg-darker); }
+    .about-container { max-width: var(--site-max); margin: 0 auto; padding: 0 var(--site-pad); }
+    .about-text { opacity: 0; transform: translateY(30px); }
 
     /* Floating 3D Books */
-    .books-container {
-      position: relative;
-      height: 300px;
-      margin: 4rem 0;
-    }
-
-    #floating-books {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
+    .books-container { position: relative; height: 300px; margin: 4rem auto; max-width: var(--site-max); padding: 0 var(--site-pad); }
+    #floating-books { position: absolute; width: 100%; height: 100%; }
 
     /* Stats Section */
     .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      max-width: var(--site-max);
+      margin: 0 auto 4rem auto;
+      padding: 0 var(--site-pad);
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
       gap: 2rem;
-      margin-top: 4rem;
     }
-
     .stat-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-      opacity: 0;
-      transform: translateY(30px);
-      text-align: center;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 10px; padding: 2rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: all 0.3s ease; opacity: 0; transform: translateY(30px); text-align: center;
     }
-
-    .stat-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.3);
-      border-color: var(--primary);
-    }
-
-    .stat-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
+    .stat-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,240,255,.3); border-color: var(--primary); }
+    .stat-icon { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary); }
     .stat-number {
-      font-size: 2.8rem;
-      font-weight: 800;
+      font-size: 2.8rem; font-weight: 800;
       background: linear-gradient(90deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
-      text-align: center;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      margin-bottom: 0.5rem; text-align: center;
     }
-
-    .stat-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    /* Early Life & Leadership Section */
-    #early-life {
-      position: relative;
-      padding: 8rem 0;
-      background: linear-gradient(135deg, var(--bg-dark), var(--bg-darker));
-    }
-
-    .el-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .el-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .el-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .el-card {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .el-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.22);
-      border-color: var(--primary);
-    }
-
-    .el-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .el-card p {
-      font-size: 0.98rem;
-      margin: 0;
-    }
-
-    .el-aside {
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 1.75rem;
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .quote {
-      font-style: italic;
-      color: var(--text-secondary);
-      margin-top: 0.75rem;
-    }
+    .stat-title { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); }
 
     /* Contact Section */
-    #contact {
-      position: relative;
-      padding: 8rem 0;
-      background: linear-gradient(135deg, var(--bg-darker), var(--bg-dark));
-    }
-
-    .contact-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-    }
-
-    .contact-info {
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .contact-icon {
-      font-size: 1.8rem;
-      color: var(--primary);
-      min-width: 50px;
-    }
-
-    .contact-text h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-text a {
-      color: var(--text-secondary);
-      transition: all 0.3s ease;
-    }
-
-    .contact-text a:hover {
-      color: var(--primary);
-    }
+    #contact { position: relative; padding: 8rem 0; background: linear-gradient(135deg, var(--bg-darker), var(--bg-dark)); }
+    .contact-container { max-width: var(--site-max); margin: 0 auto; padding: 0 var(--site-pad); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .contact-info { opacity: 0; transform: translateX(-50px); }
+    .contact-item { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; }
+    .contact-icon { font-size: 1.8rem; color: var(--primary); min-width: 50px; }
+    .contact-text h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .contact-text a { color: var(--text-secondary); transition: all 0.3s ease; }
+    .contact-text a:hover { color: var(--primary); }
 
     .contact-form {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      padding: 2.5rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      opacity: 0;
-      transform: translateX(50px);
+      background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px;
+      padding: 2.5rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      opacity: 0; transform: translateX(50px);
     }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
+    .form-group { margin-bottom: 1.5rem; }
     .form-control {
-      width: 100%;
-      padding: 1.2rem;
-      background: rgba(10, 10, 20, 0.5);
-      border: 1px solid var(--glass-border);
-      border-radius: 5px;
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      transition: all 0.3s ease;
+      width: 100%; padding: 1.2rem; background: rgba(10,10,20,.5); border: 1px solid var(--glass-border);
+      border-radius: 5px; color: var(--text-primary); font-family: 'Inter', sans-serif; transition: all 0.3s ease;
     }
-
-    .form-control:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.2);
-    }
-
-    textarea.form-control {
-      min-height: 180px;
-      resize: vertical;
-    }
+    .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,240,255,.2); }
+    textarea.form-control { min-height: 180px; resize: vertical; }
 
     .submit-btn {
-      display: inline-block;
-      padding: 1.2rem 2.5rem;
+      display: inline-block; padding: 1.2rem 2.5rem;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      border-radius: 5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      width: 100%;
+      color: #fff; border-radius: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      border: none; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; width: 100%;
     }
-
-    .submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 240, 255, 0.4);
-    }
-
+    .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,240,255,.4); }
     .submit-btn::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: all 0.6s ease;
+      content: ''; position: absolute; top:0; left:-100%; width:100%; height:100%;
+      background: linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent); transition: all .6s ease;
     }
-
-    .submit-btn:hover::after {
-      left: 100%;
-    }
+    .submit-btn:hover::after { left: 100%; }
 
     /* Footer */
-    #footer {
-      background-color: #000;
-      padding: 4rem 0 2rem;
-      border-top: 1px solid var(--glass-border);
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      text-align: center;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
+    #footer { background-color: #000; padding: 4rem 0 2rem; border-top: 1px solid var(--glass-border); }
+    .footer-content { max-width: var(--site-max); margin: 0 auto; padding: 0 var(--site-pad); text-align: center; }
+    .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
     .social-link {
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 50%;
-      color: var(--text-primary);
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
+      width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+      background: var(--glass); border: 1px solid var(--glass-border); border-radius: 50%;
+      color: var(--text-primary); font-size: 1.5rem; transition: all 0.3s ease;
     }
-
-    .social-link:hover {
-      background: var(--primary);
-      color: #000;
-      transform: translateY(-5px) scale(1.1);
-      box-shadow: var(--neon-glow);
-    }
-
-    .copyright {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-top: 2rem;
-    }
+    .social-link:hover { background: var(--primary); color: #000; transform: translateY(-5px) scale(1.1); box-shadow: var(--neon-glow); }
+    .copyright { color: var(--text-secondary); font-size: 0.9rem; margin-top: 2rem; }
 
     /* Animations */
-    .reveal {
-      opacity: 0;
-      transition: all 1s ease;
-    }
+    .reveal { opacity: 0; transition: all 1s ease; }
+    .reveal.active { opacity: 1; transform: translate(0) !important; }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translate(0) !important;
-    }
-
-    /* Responsive Design */
+    /* Responsive */
     @media (max-width: 992px) {
-      .about-content,
-      .contact-grid,
-      .el-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .about-image {
-        order: -1;
-      }
+      .contact-grid { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .header-inner {
-        padding: 0 1.5rem;
-      }
-
-      .hero-content {
-        padding: 0 1.5rem;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
+      .nav-links { display: none; }
+      .header-inner, .hero-content { padding: 0 1.5rem; }
+      .stats { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 576px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      h2 {
-        font-size: 2rem;
-      }
-
-      .hero-cta,
-      .submit-btn {
-        width: 100%;
-      }
+      h1 { font-size: 2.5rem; }
+      h2 { font-size: 2rem; }
+      .hero-cta, .submit-btn { width: 100%; }
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--bg-darker); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--primary), var(--accent)); border-radius: 5px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-    ::-webkit-scrollbar-track {
-      background: var(--bg-darker);
+    /* Modal (request phone) */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: none; align-items: center; justify-content: center; z-index: 2000; }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      width: min(560px, 92vw); background: var(--glass); border:1px solid var(--glass-border); border-radius: 14px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      padding: 1.5rem; position: relative;
     }
+    .modal h3 { margin-bottom: .5rem; }
+    .modal-sub { color: var(--text-secondary); margin-bottom: 1rem; }
+    .modal-close {
+      position: absolute; top: .6rem; right: .6rem; background: transparent; border: none; color: var(--text-secondary);
+      font-size: 1.25rem; cursor: pointer; transition: transform .2s ease, color .2s ease;
+    }
+    .modal-close:hover { transform: scale(1.1); color: var(--primary); }
+    .modal-label { display:block; margin-bottom: .35rem; color: var(--text-primary); font-weight:600; }
+    .modal-note { margin-top:.6rem; color: var(--text-secondary); font-size:.9rem; }
 
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(var(--primary), var(--accent));
-      border-radius: 5px;
+    /* Request button */
+    .request-btn {
+      display: inline-block; padding: 0.9rem 1.25rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; border: 0; border-radius: 10px; font-weight: 700; cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
     }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent);
-    }
+    .request-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,240,255,.35); }
+    .hint { display:block; margin-top:.5rem; color: var(--text-secondary); font-size:.9rem; }
   </style>
 </head>
 <body class="is-preload">
@@ -707,14 +293,15 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     </a>
     <nav class="nav-links">
       <a href="#about" class="nav-link">About</a>
-      <a href="#early-life" class="nav-link">Early Life &amp; Leadership</a>
+      <!-- open as new page -->
+      <a href="early-life.html" class="nav-link" target="_blank" rel="noopener">Early Life &amp; Leadership</a>
       <a href="#contact" class="nav-link">Contact</a>
       <a href="https://medium.com/@rattlervivek" class="nav-link" target="_blank">Writings</a>
     </nav>
   </div>
 </header>
 
-<!-- Hero Section (Black Hole Effect) -->
+<!-- Hero Section -->
 <section id="hero">
   <canvas id="blackhole-bg"></canvas>
   <div class="hero-content">
@@ -743,93 +330,101 @@ Founder-President - Vatsala Mahila Sanstha.</title>
   </div>
 </section>
 
-    <!-- 3D Floating Books -->
-    <div class="books-container">
-      <canvas id="floating-books"></canvas>
-    </div>
+<!-- Floating Books -->
+<div class="books-container">
+  <canvas id="floating-books"></canvas>
+</div>
 
-    <!-- Stats Section -->
-    <div class="stats">
-      <div class="stat-card reveal" style="transform: translateY(30px);">
-        <div class="stat-icon">
-          <i class="fas fa-people-group"></i>
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-card reveal" style="transform: translateY(30px);">
+    <div class="stat-icon"><i class="fas fa-people-group"></i></div>
+    <div class="stat-number" data-count="3000000">3M+</div>
+    <div class="stat-title">Women Impacted</div>
+  </div>
+  <div class="stat-card reveal" style="transform: translateY(30px); transition-delay: 0.2s;">
+    <div class="stat-icon"><i class="fas fa-home"></i></div>
+    <div class="stat-number" data-count="1227">1,227</div>
+    <div class="stat-title">Villages Reached</div>
+  </div>
+  <div class="stat-card reveal" style="transform: translateY(30px); transition-delay: 0.4s;">
+    <div class="stat-icon"><i class="fas fa-book"></i></div>
+    <div class="stat-number" data-count="2">2</div>
+    <div class="stat-title">Published Works</div>
+  </div>
+  <div class="stat-card reveal" style="transform: translateY(30px); transition-delay: 0.6s;">
+    <div class="stat-icon"><i class="fas fa-award"></i></div>
+    <div class="stat-number" data-count="10">10+</div>
+    <div class="stat-title">Awards</div>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<section id="contact">
+  <div class="contact-container">
+    <h2>Get In Touch</h2>
+    <div class="contact-grid">
+      <!-- Left: info -->
+      <div class="contact-info reveal" style="transform: translateX(-50px);">
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-text">
+            <h3>Location</h3>
+            <div>Kolhapur, Maharashtra</div>
+          </div>
         </div>
-        <div class="stat-number" data-count="3000000">3M+</div>
-        <div class="stat-title">Women Impacted</div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-text">
+            <h3>Phone</h3>
+            <button id="openPhoneRequest" class="request-btn">Click to Request Mobile Number</button>
+            <small class="hint">We’ll review your reason and call back if appropriate.</small>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-text">
+            <h3>Email</h3>
+            <a href="mailto:vivek0059@hotmail.com">vivek0059@hotmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-book-open"></i></div>
+          <div class="contact-text">
+            <h3>Published Works</h3>
+            <a href="https://www.amazon.com/dp/B0C4V18Y29" target="_blank">Echoes of Emotions</a><br>
+            <a href="https://a.co/d/8yo9Q30" target="_blank">Healing Pages</a>
+          </div>
+        </div>
       </div>
 
-      <div class="stat-card reveal" style="transform: translateY(30px); transition-delay: 0.2s;">
-        <div class="stat-icon">
-          <i class="fas fa-home"></i>
-        </div>
-        <div class="stat-number" data-count="1227">1,227</div>
-        <div class="stat-title">Villages Reached</div>
-      </div>
+      <!-- Right: form -->
+      <div class="contact-form reveal" style="transform: translateX(50px);">
+        <form action="https://formsubmit.co/vivek0059@hotmail.com" method="POST">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="#contact">
 
-      <div class="stat-card reveal" style="transform: translateY(30px); transition-delay: 0.4s;">
-        <div class="stat-icon">
-          <i class="fas fa-book"></i>
-        </div>
-        <div class="stat-number" data-count="2">2</div>
-        <div class="stat-title">Published Works</div>
-      </div>
-
-      <div class="stat-card reveal" style="transform: translateY(30px); transition-delay: 0.6s;">
-        <div class="stat-icon">
-          <i class="fas fa-award"></i>
-        </div>
-        <div class="stat-number" data-count="10">10+</div>
-        <div class="stat-title">Awards</div>
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" placeholder="Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" class="form-control" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <textarea name="message" class="form-control" placeholder="Message" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Early Life & Leadership Section -->
-<section id="early-life">
-  <div class="el-container">
-    <h2>Early Life &amp; Leadership</h2>
-    <div class="el-grid">
-      <div>
-        <div class="el-text reveal" style="transform: translateY(30px);">
-          <p>
-            Vivek H Sutar is a litterateur, writer, and poet. He has published various literary and non-literary works, with <em>Healing Pages</em> and <em>Echoes of Emotions</em> marking his debut. He is the founder and president of Vatsala Mahila Sanstha, tirelessly working to bring significant positive outcomes to society. Born and raised in a small village in Kagal, he pursued his education at prestigious institutions such as Shantiniketan and Sanjay Ghodawat Cambridge International School, where he excelled as the topper in his 10th board exams. He continued his high school education with the International Baccalaureate Diploma Program.
-          </p>
-          <p>
-            Since childhood, Vivek has been extremely ambitious and highly decisive, with a competitive spirit. He has represented India in national and international karate championships organized by the Shotokan Karate-Do Association of India. During junior college, he served as Vice-President of the Student Council, organizing various events and initiatives, including bringing the AFS program to his school, organizing Model United Nations (MUN) conferences, and hosting university meets attended by prestigious international institutions. His excellence extended across academics, sports, leadership, and project management.
-          </p>
-          <p>
-            One of Vivek's remarkable achievements is founding <strong>HealthForHer</strong>, a project spanning <strong>1,227 villages</strong> in the Kolhapur district, potentially saving the lives of over <strong>three million women</strong>. The project focuses on eradicating women's cancer by raising awareness, educating rural women about the types of cancer, prevention strategies, and self-examination techniques. In collaboration with the district government, Raje Vikramsinh Ghatge Foundation and other NGOs, he organized Janjagruti events and provided free cancer screening tests. The program is ongoing and has gained traction. Currently, Vivek is working with Maharashtra's Cabinet Health Minister, Shri Prakash Abitkar, to expand this initiative statewide. He is also advocating for the vaccination of girls aged 9 to 14 with the HPV vaccine.
-          </p>
-          <p>
-            Vivek has undertaken various social initiatives, which allowed him the opportunity to work alongside and interact with IAS officers and prominent individuals such as Sharad Pawar, Nitin Gadkari, Dhairyasheel Mane, Sambhajiraje Chhatrapati, Sanjay Mandlik, Dhananjay Mahadik, Satej D. Patil, Hasan Mushrif, Prakash Abitkar, and Chetan Narke, among others.
-          </p>
-          <p>
-            Inspired by his desire to contribute more to society and influenced by his interactions with social leaders, Vivek founded Vatsala Mahila Sanstha to extend his efforts on a broader scale. Being born in the birthplace of Rajarshi Shahu Maharaj, Vivek grew up surrounded by the Maharaj's inspiring legacy. Immersed in stories of Rajarshi Shahu's contributions through books, theater programs, and conversations with elders, Vivek developed a deep curiosity and admiration for the Maharaj's life and vision. This inspired him to actively contribute to society's betterment.
-          </p>
-          <p>
-            Vivek is also active in the agricultural sector, organizing large-scale events in collaboration with ATMA Maharashtra and other organizations to introduce innovative technologies and advancements to farmers. He interned at Shri Dudhganga-Vedganga Sahakari Sakhar Karkhana, working on inventory management, data analysis, and other responsibilities.
-          </p>
-          <p>
-            Dedicated to public policy, Vivek works with Raje Shri Samarjeetsinh Ghatge, Chairman of the Shahu Group and Kolhapur DPC member, who is a direct descendant of Rajarshi Shahu Maharaj.
-          </p>
-          <p>
-            Vivek is a dynamic young leader, known for his exceptional oratory skills, visionary ideas, and impactful actions. He has received appreciation letters from social leaders and has been recognized with awards from local governments for his contributions.
-          </p>
-        </div>
-      </div>
-      <aside class="el-aside reveal">
-        <h3>Inspiration</h3>
-        <p>
-          Growing up in the birthplace of Rajarshi Shahu Maharaj, Vivek was immersed in stories of the Maharaj’s reformist legacy through books, theatre and elders’ guidance—fueling a deep commitment to public service.
-        </p>
-        <p class="quote">“वात्सल्येन लोकसेवा!”</p>
-      </aside>
-    </div>
-  </div>
-</section>
-
-  <!-- Phone Request Modal -->
+<!-- Phone Request Modal (hidden by default) -->
 <div id="phoneRequestModal" class="modal-overlay" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="phoneRequestTitle">
     <button type="button" class="modal-close" id="closePhoneRequest" aria-label="Close">
@@ -839,7 +434,6 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     <p class="modal-sub">Please share your details and the reason. We’ll review and call you back if appropriate.</p>
 
     <form id="phoneRequestForm" action="https://formsubmit.co/vivek0059@hotmail.com" method="POST" novalidate>
-      <!-- FormSubmit options -->
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_subject" value="Mobile Number Request via Website">
@@ -850,111 +444,30 @@ Founder-President - Vatsala Mahila Sanstha.</title>
         <label class="modal-label">Your Name*</label>
         <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
       </div>
-
       <div class="form-group">
         <label class="modal-label">Your Phone Number*</label>
         <input type="tel" name="requester_phone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
       </div>
-
       <div class="form-group">
         <label class="modal-label">Reason for Requesting the Number*</label>
         <textarea name="reason" class="form-control" placeholder="Please explain briefly..." required></textarea>
       </div>
 
-      <button type="submit" class="submit-btn" id="phoneRequestSubmit">
-        Submit Request
-      </button>
+      <button type="submit" class="submit-btn" id="phoneRequestSubmit">Submit Request</button>
       <div class="modal-note">* All fields are mandatory</div>
     </form>
   </div>
 </div>
 
-<!-- Contact items (address, request phone, email, books) -->
-<div class="contact-item">
-  <div class="contact-icon">
-    <i class="fas fa-map-marker-alt"></i>
-  </div>
-  <div class="contact-text">
-    <h3>Location</h3>
-    <div>Kolhapur, Maharashtra</div> <!-- No exact address, no map link -->
-  </div>
-</div>
-
-<div class="contact-item">
-  <div class="contact-icon">
-    <i class="fas fa-phone"></i>
-  </div>
-  <div class="contact-text">
-    <h3>Phone</h3>
-    <button id="openPhoneRequest" class="request-btn">Click to Request Mobile Number</button>
-    <small class="hint">We’ll review your reason and call back if appropriate.</small>
-  </div>
-</div>
-
-<div class="contact-item">
-  <div class="contact-icon">
-    <i class="fas fa-envelope"></i>
-  </div>
-  <div class="contact-text">
-    <h3>Email</h3>
-    <a href="mailto:vivek0059@hotmail.com">vivek0059@hotmail.com</a>
-  </div>
-</div>
-
-<div class="contact-item">
-  <div class="contact-icon">
-    <i class="fas fa-book-open"></i>
-  </div>
-  <div class="contact-text">
-    <h3>Published Works</h3>
-    <a href="https://www.amazon.com/dp/B0C4V18Y29" target="_blank">Echoes of Emotions</a><br>
-    <a href="https://a.co/d/8yo9Q30" target="_blank">Healing Pages</a>
-  </div>
-</div>
-
-      <div class="contact-form reveal" style="transform: translateX(50px);">
-        <form action="https://formsubmit.co/vivek0059@hotmail.com" method="POST">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="#contact">
-
-          <div class="form-group">
-            <input type="text" name="name" class="form-control" placeholder="Name" required>
-          </div>
-
-          <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Email" required>
-          </div>
-
-          <div class="form-group">
-            <textarea name="message" class="form-control" placeholder="Message" required></textarea>
-          </div>
-
-          <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Footer -->
 <footer id="footer">
   <div class="footer-content">
     <div class="social-links">
-      <a href="https://twitter.com/rattlervivek" class="social-link" target="_blank">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="https://www.instagram.com/rattlervivek" class="social-link" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="https://medium.com/@rattlervivek" class="social-link" target="_blank">
-        <i class="fab fa-medium"></i>
-      </a>
-      <a href="https://www.youtube.com/@rattlervivek" class="social-link" target="_blank">
-        <i class="fab fa-youtube"></i>
-      </a>
+      <a href="https://twitter.com/rattlervivek" class="social-link" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/rattlervivek" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://medium.com/@rattlervivek" class="social-link" target="_blank"><i class="fab fa-medium"></i></a>
+      <a href="https://www.youtube.com/@rattlervivek" class="social-link" target="_blank"><i class="fab fa-youtube"></i></a>
     </div>
-
     <p class="copyright">
       &copy; <span id="year"></span> ViRaj. All rights reserved.<br>
       वात्सल्येन लोकसेवा!
@@ -980,27 +493,18 @@ Founder-President - Vatsala Mahila Sanstha.</title>
   // Header scroll effect
   window.addEventListener('scroll', function() {
     const header = document.getElementById('header');
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
+    if (window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
   });
 
   // Initialize Black Hole Background
   function initBlackHole() {
     const canvas = document.getElementById('blackhole-bg');
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      antialias: true,
-      alpha: true
-    });
-
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 5;
 
-    // Create black hole effect
     const geometry = new THREE.BufferGeometry();
     const particleCount = 5000;
     const positions = new Float32Array(particleCount * 3);
@@ -1024,53 +528,32 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    const material = new THREE.PointsMaterial({
-      size: 0.02,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending
-    });
-
+    const material = new THREE.PointsMaterial({ size: 0.02, vertexColors: true, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 
-    // Mouse movement effect
-    let mouseX = 0;
-    let mouseY = 0;
-
-    document.addEventListener('mousemove', (event) => {
-      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
     });
 
-    // Animation loop
     function animate() {
       requestAnimationFrame(animate);
-
       particles.rotation.x += 0.0005;
       particles.rotation.y += 0.0005;
 
-      // Black hole warp effect
-      const time = Date.now() * 0.0001;
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
-        const x = positions[i3];
-        const y = positions[i3 + 1];
-        const z = positions[i3 + 2];
-
-        // Create spiral motion
-        const distance = Math.sqrt(x * x + y * y + z * z);
+        const x = positions[i3], y = positions[i3 + 1], z = positions[i3 + 2];
+        const distance = Math.sqrt(x*x + y*y + z*z);
         const speed = 0.1 / (distance * distance + 0.1);
-
         positions[i3] += (0 - x) * speed;
         positions[i3 + 1] += (0 - y) * speed;
         positions[i3 + 2] += (0 - z) * speed;
       }
-
       geometry.attributes.position.needsUpdate = true;
 
-      // Respond to mouse movement
       camera.position.x += (mouseX * 2 - camera.position.x) * 0.01;
       camera.position.y += (mouseY * 2 - camera.position.y) * 0.01;
       camera.lookAt(scene.position);
@@ -1078,16 +561,13 @@ Founder-President - Vatsala Mahila Sanstha.</title>
       renderer.render(scene, camera);
     }
 
-    // Handle resize
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     }
-
     window.addEventListener('resize', onWindowResize);
 
-    // Start animation
     renderer.setSize(window.innerWidth, window.innerHeight);
     animate();
   }
@@ -1095,244 +575,171 @@ Founder-President - Vatsala Mahila Sanstha.</title>
   // Initialize 3D Floating Books
   function initFloatingBooks() {
     const canvas = document.getElementById('floating-books');
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      alpha: true,
-      antialias: true
-    });
+    if (!canvas) return;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 
     const scene = new THREE.Scene();
-    const light = new THREE.AmbientLight(0xffffff, 1.5);
-    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.5));
 
     const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-
     const isMobile = window.innerWidth < 768;
     const isTablet = window.innerWidth < 1024 && window.innerWidth >= 768;
-
     camera.position.z = isMobile ? 5.8 : isTablet ? 4.5 : 3.5;
 
     const loader = new THREE.TextureLoader();
     const book1Texture = loader.load('images/echoes.jpg');
     const book2Texture = loader.load('images/healing.jpg');
 
-    const book1Material = [
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
-      new THREE.MeshBasicMaterial({ map: book1Texture }), // front
-      new THREE.MeshBasicMaterial({ map: book1Texture })  // back same as front
-    ];
-
-    const book2Material = [
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
-      new THREE.MeshBasicMaterial({ color: 0x111111 }),
+    const side = new THREE.MeshBasicMaterial({ color: 0x111111 });
+    const book1 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 3.6, 0.15), [
+      side, side, side, side,
+      new THREE.MeshBasicMaterial({ map: book1Texture }),
+      new THREE.MeshBasicMaterial({ map: book1Texture })
+    ]);
+    const book2 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 3.6, 0.15), [
+      side, side, side, side,
       new THREE.MeshBasicMaterial({ map: book2Texture }),
       new THREE.MeshBasicMaterial({ map: book2Texture })
-    ];
+    ]);
 
-    const bookGeometry = new THREE.BoxGeometry(2.4, 3.6, 0.15);
-    const book1 = new THREE.Mesh(bookGeometry, book1Material);
-    const book2 = new THREE.Mesh(bookGeometry, book2Material);
+    book1.position.x = -2; book2.position.x = 2;
+    scene.add(book1); scene.add(book2);
 
-    book1.position.x = -2;
-    book2.position.x = 2;
-
-    scene.add(book1);
-    scene.add(book2);
-
-    // Scroll tracking
-    let lastScrollTop = window.scrollY;
-    let scrollOffset = 0;
-
+    let lastScrollTop = window.scrollY, scrollOffset = 0;
     window.addEventListener('scroll', () => {
       const currentScroll = window.scrollY;
       const delta = currentScroll - lastScrollTop;
-
       scrollOffset += delta * 0.01;
       scrollOffset = Math.max(-1, Math.min(1, scrollOffset));
-
       lastScrollTop = currentScroll;
     });
 
-    // Mouse tracking
     let mouseX = 0;
+    window.addEventListener('mousemove', (e) => { mouseX = (e.clientX / window.innerWidth - 0.5) * 2; });
 
-    window.addEventListener('mousemove', (event) => {
-      mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
-    });
-
-    // Animate loop
     function animate() {
       requestAnimationFrame(animate);
-
-      // Scroll-based vertical movement
       book1.position.y = -scrollOffset;
       book2.position.y = -scrollOffset;
-
-      // Mouse-based horizontal sway
       book1.position.x = -2 + mouseX * 0.5;
       book2.position.x =  2 + mouseX * 0.5;
-
       renderer.render(scene, camera);
     }
 
-    // Handle canvas resize
     function onWindowResize() {
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     }
-
     window.addEventListener('resize', onWindowResize);
 
-    // Start it all
     renderer.setSize(canvas.clientWidth, canvas.clientHeight);
     animate();
   }
 
-  // Initialize GSAP animations
+  // GSAP animations
   function initAnimations() {
-    // Register ScrollTrigger plugin
     gsap.registerPlugin(ScrollTrigger);
+    gsap.to('.hero-subtitle', { duration: 1, opacity: 1, y: 0, delay: 0.5, ease: 'power2.out' });
+    gsap.to('.hero-cta', { duration: 1, opacity: 1, y: 0, delay: 1, ease: 'power2.out' });
+    gsap.to('.hero-cta', { y: -10, duration: 2, repeat: -1, yoyo: true, ease: 'sine.inOut' });
 
-    // Hero section animations
-    gsap.to('.hero-subtitle', {
-      duration: 1,
-      opacity: 1,
-      y: 0,
-      delay: 0.5,
-      ease: 'power2.out'
-    });
-
-    gsap.to('.hero-cta', {
-      duration: 1,
-      opacity: 1,
-      y: 0,
-      delay: 1,
-      ease: 'power2.out'
-    });
-
-    // Continuous floating animation for CTA
-    gsap.to('.hero-cta', {
-      y: -10,
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    });
-
-    // Scroll-triggered animations
-    gsap.utils.toArray('.reveal, .el-card, .el-aside').forEach(element => {
-      gsap.to(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 80%',
-          toggleActions: 'play none none none'
-        },
-        duration: 1,
-        opacity: 1,
-        y: 0,
-        x: 0,
-        ease: 'power2.out'
+    gsap.utils.toArray('.reveal, .el-card, .el-aside').forEach(el => {
+      gsap.to(el, {
+        scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none none' },
+        duration: 1, opacity: 1, y: 0, x: 0, ease: 'power2.out'
       });
     });
 
-    // Animate stats counters
     gsap.utils.toArray('.stat-number').forEach(stat => {
       const target = parseInt(stat.getAttribute('data-count'));
-      let current = 0;
-      const duration = 2;
-
+      let current = 0; const duration = 2;
       gsap.to({}, {
-        scrollTrigger: {
-          trigger: stat,
-          start: 'top 80%',
-          onEnter: () => {
-            const increment = target / (duration * 60);
-            const timer = setInterval(() => {
-              current += increment;
-              if (current >= target) {
-                current = target;
-                clearInterval(timer);
-              }
-              stat.textContent = Math.floor(current).toLocaleString();
-            }, 1000 / 60);
-          }
-        }
-      });
-    });
-
-    // Social link hover animations
-    gsap.utils.toArray('.social-link').forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        gsap.to(link, {
-          scale: 1.1,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-      });
-
-      link.addEventListener('mouseleave', () => {
-        gsap.to(link, {
-          scale: 1,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
+        scrollTrigger: { trigger: stat, start: 'top 80%', onEnter: () => {
+          const inc = target / (duration * 60);
+          const timer = setInterval(() => {
+            current += inc;
+            if (current >= target) { current = target; clearInterval(timer); }
+            stat.textContent = Math.floor(current).toLocaleString();
+          }, 1000/60);
+        }}
       });
     });
   }
 
-  // Initialize everything when DOM is loaded
+  // Modal open/close + submit
+  function initPhoneRequestModal() {
+    const btn = document.getElementById('openPhoneRequest');
+    const modal = document.getElementById('phoneRequestModal');
+    const closeBtn = document.getElementById('closePhoneRequest');
+    const form = document.getElementById('phoneRequestForm');
+    const submit = document.getElementById('phoneRequestSubmit');
+    if (!btn || !modal) return;
+
+    const open = () => { modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=>form?.querySelector('input[name="name"]')?.focus(),50); };
+    const close = () => { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; };
+
+    btn.addEventListener('click', open);
+    closeBtn?.addEventListener('click', close);
+    modal.addEventListener('click', (e)=>{ if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        const name = form.elements['name'].value.trim();
+        const phone = form.elements['requester_phone'].value.trim();
+        const reason = form.elements['reason'].value.trim();
+        if (!name || !phone || !reason) {
+          e.preventDefault();
+          if (submit) { submit.textContent='Please fill all fields'; setTimeout(()=> submit.textContent='Submit Request', 1400); }
+          return;
+        }
+        e.preventDefault();
+        if (submit) { submit.disabled = true; submit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...'; }
+        try {
+          const res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
+          if (res.ok) {
+            form.reset();
+            if (submit) submit.innerHTML = '<i class="fas fa-check"></i> Sent';
+            setTimeout(()=> { if (submit){ submit.disabled=false; submit.textContent='Submit Request'; } close(); }, 1200);
+          } else throw new Error('Network not ok');
+        } catch(err) {
+          console.error(err);
+          if (submit) { submit.innerHTML = '<i class="fas fa-times"></i> Error'; setTimeout(()=>{ submit.disabled=false; submit.textContent='Submit Request'; }, 1500); }
+        }
+      });
+    }
+  }
+
+  // Initialize everything
   document.addEventListener('DOMContentLoaded', function() {
     initBlackHole();
     initFloatingBooks();
     initAnimations();
+    initPhoneRequestModal();
 
-    // Form submission handler
-    const form = document.querySelector('form');
+    // Contact form submission UX
+    const form = document.querySelector('#contact form');
     if (form) {
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
         const formData = new FormData(form);
         const submitBtn = form.querySelector('.submit-btn');
-
-        // Show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-
         try {
-          const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-          });
-
+          const response = await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
           if (response.ok) {
             form.reset();
             submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
             submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #2E7D32)';
-
-            // Reset button after 3 seconds
-            setTimeout(() => {
-              submitBtn.innerHTML = 'Send Message';
-              submitBtn.style.background = 'linear-gradient(135deg, var(--primary), var(--primary-dark))';
-              submitBtn.disabled = false;
-            }, 3000);
+            setTimeout(() => { submitBtn.innerHTML = 'Send Message'; submitBtn.style.background = 'linear-gradient(135deg, var(--primary), var(--primary-dark))'; submitBtn.disabled = false; }, 3000);
           }
         } catch (error) {
           console.error('Error:', error);
           submitBtn.innerHTML = '<i class="fas fa-times"></i> Error!';
           submitBtn.style.background = 'linear-gradient(135deg, #F44336, #C62828)';
-
-          setTimeout(() => {
-            submitBtn.innerHTML = 'Send Message';
-            submitBtn.style.background = 'linear-gradient(135deg, var(--primary), var(--primary-dark))';
-            submitBtn.disabled = false;
-          }, 3000);
+          setTimeout(() => { submitBtn.innerHTML = 'Send Message'; submitBtn.style.background = 'linear-gradient(135deg, var(--primary), var(--primary-dark))'; submitBtn.disabled = false; }, 3000);
         }
       });
     }
