@@ -334,3 +334,42 @@
   transform: translateY(0) !important;
   filter: brightness(0.98) !important;
 }
+
+/* FORCE the Phone Request button style (put this LAST in your CSS) */
+#contact .contact-text #openPhoneRequest.request-btn {
+  /* reset native look */
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  border: 0 !important;
+  background: none !important;
+
+  /* desired styles */
+  display: block !important;                 /* own line */
+  padding: 1rem 2rem !important;
+  font: 800 1rem/1 'Inter', system-ui, sans-serif !important;
+  color: #fff !important;
+  background-image: linear-gradient(135deg, #00F0FF, #0077FF) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(0,120,255,.25) !important;
+  margin: .5rem 0 .75rem !important;
+  cursor: pointer !important;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease !important;
+}
+
+/* Firefox inner focus fix */
+#openPhoneRequest::-moz-focus-inner { border: 0 !important; padding: 0 !important; }
+
+/* interactions */
+#openPhoneRequest:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(0,120,255,.35) !important;
+  filter: brightness(1.05) !important;
+}
+#openPhoneRequest:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0,240,255,.35), 0 8px 24px rgba(0,120,255,.25) !important;
+}
+#openPhoneRequest:active {
+  transform: translateY(0) !important;
+  filter: brightness(.98) !important;
+}
