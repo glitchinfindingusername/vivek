@@ -246,6 +246,19 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     .modal-wide { width: min(880px, 92vw); }
     .modal-scroll { max-height: min(72vh, 760px); overflow: auto; padding-right: .25rem; }
   </style>
+  <!-- Button color override (put this just before </head>) -->
+<style>
+  #openPhoneRequest.request-btn.hint.as-link {
+    background: #444 !important;   /* solid gray */
+    color: #fff !important;
+    border: 1px solid #666 !important;
+    box-shadow: none !important;
+  }
+  #openPhoneRequest.request-btn.hint.as-link:hover {
+    background: #555 !important;   /* hover gray */
+    color: #fff !important;
+  }
+</style>
 </head>
 <body class="is-preload">
 
@@ -342,7 +355,7 @@ Founder-President - Vatsala Mahila Sanstha.</title>
           <div class="contact-text">
             <h3>Phone</h3>
             <button id="openPhoneRequest" class="request-btn hint as-link">
-  Click to Request Mobile Number — We’ll review your reason and call back if appropriate.
+  Click to Request Mobile Number.
 </button>
           </div>
         </div>
