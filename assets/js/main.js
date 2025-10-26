@@ -61,7 +61,7 @@
 	function setupForm() {
 		const form = $('form[data-form="contact"], #contact form')
 			.filter(':not(#phoneRequestForm)')
-			first();
+			.first();
 		if (!form.length) return;
 
 		form.on('submit', function () {
