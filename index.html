@@ -171,6 +171,34 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     #contact .contact-text a:hover,
     #contact .contact-text .as-link:hover { text-shadow: var(--neon-glow); }
 
+    /* === Force light gray in Contact, gradient only on hover === */
+#contact .contact-text a.force-gray,
+#contact .contact-text a.force-gray:visited,
+#contact .contact-text .force-gray {
+  background: none !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: var(--text-secondary, #AAAAAA) !important;
+  color: var(--text-secondary, #AAAAAA) !important;
+  text-decoration: none !important;
+  text-shadow: none !important; /* no glow until hover */
+}
+
+/* hover = gradient (with glow like other links) */
+#contact .contact-text a.force-gray:hover,
+#contact .contact-text .force-gray:hover,
+#contact .contact-text a.force-gray:focus,
+#contact .contact-text .force-gray:focus {
+  background: linear-gradient(90deg, var(--primary, #00F0FF), var(--accent, #FF00AA)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  text-decoration: none !important;
+  text-shadow: var(--neon-glow) !important;
+  outline: none;
+}
+
     .contact-form { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; padding: 2.5rem; backdrop-filter: blur(10px); opacity: 0; transform: translateX(50px); }
     .form-group { margin-bottom: 1.5rem; }
     .form-control { width: 100%; padding: 1.2rem; background: rgba(10,10,20,.5); border: 1px solid var(--glass-border); border-radius: 5px; color: var(--text-primary); transition: all .3s ease; }
