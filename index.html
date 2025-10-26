@@ -259,6 +259,34 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     color: #fff !important;
   }
 </style>
+  <style>
+  /* Fix: make the merged button solid gray with visible white text */
+  #openPhoneRequest.request-btn.hint.as-link {
+    background: #444 !important;
+    border: 1px solid #666 !important;
+    box-shadow: none !important;
+
+    /* kill the gradient text styles from .as-link */
+    background-clip: initial !important;
+    -webkit-background-clip: initial !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    text-shadow: none !important;
+
+    /* (optional) ensure nice sizing */
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    border-radius: 9999px;
+    font-weight: 600;
+  }
+
+  #openPhoneRequest.request-btn.hint.as-link:hover {
+    background: #555 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+</style>
 </head>
 <body class="is-preload">
 
