@@ -108,33 +108,27 @@ Founder-President - Vatsala Mahila Sanstha.</title>
     .nav-link:hover { color: var(--text-primary); }
     .nav-link:hover::after { width: 100%; }
 
-    /* Hero layout — center everything and keep the canvas behind */
-#hero {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;      /* horizontal center */
-  justify-content: center;  /* vertical center */
-  text-align: center;
-  min-height: 100vh;
-  padding-top: 96px;        /* avoids overlap with the fixed header */
-}
+    /* Hero Section */
+    #hero {
+      position: relative; height: 100vh; min-height: 800px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 var(--site-pad); }
+    .hero-subtitle { font-size: 1.3rem; color: var(--text-secondary); margin-bottom: 2rem; opacity: 0; transform: translateY(20px); }
 
-#blackhole-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  z-index: 1;               /* behind the content */
-}
+    .hero-cta {
+      display: inline-block; padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; border-radius: 50px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+      border: none; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(20px); box-shadow: 0 0 20px rgba(0,240,255,.5);
+    }
+    .hero-cta:hover { transform: translateY(-5px); box-shadow: 0 0 30px rgba(0,240,255,.8); }
+    .hero-cta::before { content: ''; position: absolute; top:0; left:-100%; width:100%; height:100%;
+      background: linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent); transition: all .6s ease; }
+    .hero-cta:hover::before { left: 100%; }
 
-.hero-content {
-  position: relative;
-  z-index: 2;               /* above the canvas */
-  max-width: min(900px, 92vw);
-  margin: 0 auto;
-}
+    #blackhole-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 
     /* Sections & cards */
     #about { position: relative; padding: 8rem 0; background-color: var(--bg-darker); }
