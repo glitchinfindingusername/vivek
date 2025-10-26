@@ -88,6 +88,7 @@
   height: 100%;
   display: block;
   z-index: 1;                 /* canvas behind the text */
+  pointer-events: none;       /* don't block clicks */
 }
 
 /* Header avatar */
@@ -269,4 +270,18 @@
   background-clip: initial !important;
   color: var(--text-secondary, #AAAAAA) !important;
   text-decoration: none;
+}
+/* Heavier specificity inside Contact (just in case) */
+#contact .contact-text .force-gray { color: var(--text-secondary, #AAAAAA) !important; }
+
+/* Make force-gray turn gradient on hover/focus */
+.force-gray:hover,
+.force-gray:focus {
+  background: linear-gradient(90deg, var(--primary, #00F0FF), var(--accent, #FF00AA)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  text-decoration: none;
+  outline: none;
 }
