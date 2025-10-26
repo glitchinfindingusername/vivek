@@ -50,52 +50,26 @@
 
 		setupForm();              // main contact form
 		initTypingEffect();       // optional typed heading
-		initPhoneRequestModal();  // request number modal
+		initPhoneRequestModal();  // request number modal (with fun lines)
 		initEarlyLifeModal();     // NEW: early life modal
 	}
 
 	/* =========================
 	   Contact form (main)
+	   -> Native submit to FormSubmit (no AJAX/CORS).
 	========================= */
 	function setupForm() {
-		const form = $('form[data-form="contact"], #contact form').filter(':not(#phoneRequestForm)').first();
-		const msg  = $("#form-message");
+		const form = $('form[data-form="contact"], #contact form')
+			.filter(':not(#phoneRequestForm)')
+			first();
 		if (!form.length) return;
 
-		form.on("submit", async function(e) {
-			e.preventDefault();
-
+		form.on('submit', function () {
+			// quick visual feedback; page will navigate
 			const $submit = form.find('[type="submit"]').first();
-			if ($submit.length) $submit.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sending...');
-
-			try {
-				const res = await fetch(form.attr("action"), {
-					method: "POST",
-					body: new FormData(form[0]),
-					headers: { 'Accept': 'application/json' }
-				});
-
-				if (res.ok) {
-					form.trigger("reset");
-					if (msg.length) {
-						msg.css("display", "block");
-						if (typeof gsap !== 'undefined') {
-							gsap.to(msg, { scale: 1.2, duration: 0.5, yoyo: true, repeat: 1, ease: "power1.inOut" });
-						}
-					}
-					if ($submit.length) {
-						$submit.html('<i class="fas fa-check"></i> Sent');
-						setTimeout(() => $submit.prop('disabled', false).text('Send Message'), 1200);
-					}
-				} else {
-					throw new Error('Network response not ok');
-				}
-			} catch (error) {
-				console.error('Form submission error:', error);
-				if ($submit.length) {
-					$submit.html('<i class="fas fa-times"></i> Error');
-					setTimeout(() => $submit.prop('disabled', false).text('Send Message'), 1500);
-				}
+			if ($submit.length) {
+				$submit.prop('disabled', true)
+				       .html('<i class="fas fa-spinner fa-spin"></i> Sending...');
 			}
 		});
 	}
@@ -123,6 +97,9 @@
 
 	/* =========================
 	   Request Mobile Number modal
+	   -> Fun re-click lines on invalid submit
+	   -> Native submit when valid (no AJAX)
+	   -> Pause GSAP while open to reduce load
 	========================= */
 	function initPhoneRequestModal() {
 		const $btn    = $('#openPhoneRequest');
@@ -136,11 +113,14 @@
 		const open = () => {
 			$modal.addClass('open').attr('aria-hidden', 'false');
 			$body.addClass('modal-open');
+			// Reduce background load
+			if (window.gsap?.globalTimeline) gsap.globalTimeline.pause();
 			setTimeout(() => $form.find('input[name="name"]').trigger('focus'), 50);
 		};
 		const close = () => {
 			$modal.removeClass('open').attr('aria-hidden', 'true');
 			$body.removeClass('modal-open');
+			if (window.gsap?.globalTimeline) gsap.globalTimeline.resume();
 		};
 
 		$btn.on('click', open);
@@ -148,62 +128,46 @@
 		$modal.on('click', (e) => { if (e.target === $modal[0]) close(); });
 		$(document).on('keydown', (e) => { if (e.key === 'Escape' && $modal.hasClass('open')) close(); });
 
-		// Submit (with playful re-click lines)
+		// Submit (funny lines + native submit)
 		if ($form.length) {
 			let lastAttempt = { name: "", phone: "", reason: "" };
 			let repeatClicks = 0;
 			const funLines = [
-				"The button works. Your fields don’t. 😅",
+				"The button works. Your fields don’t.",
 				"Blank forms don’t call back. Pinky promise.",
 				"Try typing. It’s wildly effective.",
-				"Pro tip: text goes inside the boxes. ✍️"
+				"Pro tip: text goes inside the boxes."
 			];
 
-			$form.on('submit', async function(e) {
+			$form.on('submit', function (e) {
 				const name   = $.trim($form.find('[name="name"]').val());
 				const phone  = $.trim($form.find('[name="requester_phone"]').val());
 				const reason = $.trim($form.find('[name="reason"]').val());
 
+				// If any field is empty → block submit, show playful messages
 				if (!name || !phone || !reason) {
 					e.preventDefault();
 
+					// Same empty state again? rotate lines; else reset counter
 					if (lastAttempt.name === name && lastAttempt.phone === phone && lastAttempt.reason === reason) {
 						repeatClicks++;
-						const msg = funLines[(repeatClicks - 1) % funLines.length];
-						if ($submit.length) { $submit.text(msg); setTimeout(() => $submit.text('Submit Request'), 1600); }
 					} else {
-						repeatClicks = 0;
-						if ($submit.length) { $submit.text('Please fill all fields'); setTimeout(() => $submit.text('Submit Request'), 1200); }
+						repeatClicks = 1; // first playful message
+					}
+					const msg = funLines[(repeatClicks - 1) % funLines.length];
+					if ($submit.length) {
+						$submit.text(msg);
+						setTimeout(() => $submit.text('Submit Request'), 1600);
 					}
 					lastAttempt = { name, phone, reason };
 					return;
 				}
 
-				e.preventDefault();
+				// Valid → native submit (no preventDefault)
 				repeatClicks = 0;
-				if ($submit.length) $submit.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Sending...');
-
-				try {
-					const res = await fetch($form.attr('action'), {
-						method: 'POST',
-						body: new FormData($form[0]),
-						headers: { 'Accept': 'application/json' }
-					});
-
-					if (res.ok) {
-						$form[0].reset();
-						lastAttempt = { name: "", phone: "", reason: "" };
-						if ($submit.length) $submit.html('<i class="fas fa-check"></i> Sent');
-						setTimeout(() => { close(); if ($submit.length) $submit.prop('disabled', false).text('Submit Request'); }, 1200);
-					} else {
-						throw new Error('Network response not ok');
-					}
-				} catch (err) {
-					console.error('Phone request submit error:', err);
-					if ($submit.length) {
-						$submit.html('<i class="fas fa-times"></i> Error');
-						setTimeout(() => { $submit.prop('disabled', false).text('Submit Request'); }, 1500);
-					}
+				lastAttempt = { name: "", phone: "", reason: "" };
+				if ($submit.length) {
+					$submit.html('<i class="fas fa-spinner fa-spin"></i> Sending...');
 				}
 			});
 		}
