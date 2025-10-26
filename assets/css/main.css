@@ -297,3 +297,41 @@
   text-decoration: none;
   outline: none;
 }
+/* === Phone button: force gradient + layout in Contact === */
+#contact .contact-text .request-btn {
+  display: block !important;          /* own line */
+  padding: 1rem 2rem !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  color: #fff !important;
+
+  background: linear-gradient(135deg, var(--primary, #00F0FF), var(--primary-dark, #0077FF)) !important;
+  border: none !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(0,120,255,0.25) !important;
+  margin: .25rem 0 .75rem !important; /* space before hint */
+
+  cursor: pointer !important;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+/* remove Firefox inner focus border/padding */
+#contact .contact-text .request-btn::-moz-focus-inner { border: 0 !important; padding: 0 !important; }
+
+#contact .contact-text .request-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px rgba(0,120,255,0.35) !important;
+  filter: brightness(1.05) !important;
+}
+#contact .contact-text .request-btn:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0,240,255,0.35), 0 8px 24px rgba(0,120,255,0.25) !important;
+}
+#contact .contact-text .request-btn:active {
+  transform: translateY(0) !important;
+  filter: brightness(0.98) !important;
+}
