@@ -48,7 +48,6 @@
 	function initSite() {
 		if (settings.parallax) $window.off('scroll.strata_parallax');
 
-		setupForm();              // main contact form
 		initTypingEffect();       // optional typed heading
 		initPhoneRequestModal();  // request number modal (with fun lines)
 		initEarlyLifeModal();     // NEW: early life modal
@@ -139,37 +138,6 @@
 				"Pro tip: text goes inside the boxes."
 			];
 
-			$form.on('submit', function (e) {
-				const name   = $.trim($form.find('[name="name"]').val());
-				const phone  = $.trim($form.find('[name="requester_phone"]').val());
-				const reason = $.trim($form.find('[name="reason"]').val());
-
-				// If any field is empty → block submit, show playful messages
-				if (!name || !phone || !reason) {
-					e.preventDefault();
-
-					// Same empty state again? rotate lines; else reset counter
-					if (lastAttempt.name === name && lastAttempt.phone === phone && lastAttempt.reason === reason) {
-						repeatClicks++;
-					} else {
-						repeatClicks = 1; // first playful message
-					}
-					const msg = funLines[(repeatClicks - 1) % funLines.length];
-					if ($submit.length) {
-						$submit.text(msg);
-						setTimeout(() => $submit.text('Submit Request'), 1600);
-					}
-					lastAttempt = { name, phone, reason };
-					return;
-				}
-
-				// Valid → native submit (no preventDefault)
-				repeatClicks = 0;
-				lastAttempt = { name: "", phone: "", reason: "" };
-				if ($submit.length) {
-					$submit.html('<i class="fas fa-spinner fa-spin"></i> Sending...');
-				}
-			});
 		}
 	}
 
